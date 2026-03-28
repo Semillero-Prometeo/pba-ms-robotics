@@ -1,0 +1,20 @@
+{
+  "include": ["src"],
+  "exclude": [
+    "**/__pycache__",
+    ".venv",
+    "venv",
+    "build",
+    "dist"
+  ],
+  "stubPath": "typings",
+  "reportMissingImports": true,
+  "reportMissingTypeStubs": false,
+  "reportUnknownMemberType": false,
+  "reportUnknownArgumentType": false,
+  "reportUnknownVariableType": false,
+  "pythonVersion": "3.14",
+  "pythonPlatform": "Linux",
+  "typeCheckingMode": "strict"
+}
+
