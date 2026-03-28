@@ -137,13 +137,3 @@ ignore = [
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
 "tests/*" = ["ANN"]      # no forzar anotaciones en tests
-
-# ──────────────────────────────────────────────
-# Pytest
-# ──────────────────────────────────────────────
-[tool.pytest.ini_options]
-testpaths = ["tests"]
-python_files = ["test_*.py"]
-python_classes = ["Test*"]
-python_functions = ["test_*"]
-asyncio_mode = "auto"
