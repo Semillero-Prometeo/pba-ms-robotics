@@ -1,7 +1,7 @@
 from typing import Any
 from nats.aio.client import Client as NATSClient
 
-# from core.settings.env import ROBOTICS_MS
+# from src.core.settings.env import ROBOTICS_MS
 
 # Load controllers
 # from src.app.app_controller import AppController

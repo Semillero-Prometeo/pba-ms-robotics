@@ -9,7 +9,7 @@ from nats.aio.errors import ErrNoServers
 from nats.aio.msg import Msg as NATSMessage
 
 # Envs
-from core.settings.env import NATS_SERVER
+from src.core.settings.env import NATS_SERVER
 
 logger: logging.Logger = logging.getLogger(__name__)
 
