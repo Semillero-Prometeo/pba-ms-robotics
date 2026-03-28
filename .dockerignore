@@ -1,0 +1,10 @@
+dist/
+.env
+.vscode/
+__pycache__/
+.pytest_cache/
+.env
+.env.local
+.env.development.local
+.env.test.local
+.env.production.local
