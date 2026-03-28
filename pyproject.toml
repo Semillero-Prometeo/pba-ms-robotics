@@ -7,7 +7,7 @@ name = "pba-ms-robotics"
 version = "0.1.0"
 description = "Prometeo Backend Architecture Robotics Microservice"
 readme = "README.md"
-requires-python = ">=3.14"
+requires-python = ">=3.13"
 dependencies = [
     "fastapi>=0.115.0",
     "uvicorn>=0.34.0",
@@ -41,7 +41,7 @@ packages = { find = {} }
 # Mypy — tipado estricto
 # ──────────────────────────────────────────────
 [tool.mypy]
-python_version = "3.14"
+python_version = "3.13"
 warn_return_any = true
 warn_unused_configs = true
 disallow_untyped_defs = true
@@ -86,7 +86,7 @@ reportOptionalContextManager = true
 reportOptionalOperand = true
 reportGeneralTypeIssues = true
 reportPrivateImportUsage = true
-pythonVersion = "3.14"
+pythonVersion = "3.13"
 pythonPlatform = "Linux"
 typeCheckingMode = "strict"
 strictListInference = true
@@ -99,7 +99,7 @@ strictSetInference = true
 [tool.black]
 line-length = 100
 target-version = [
-    "py312",
+    "py313",
 ] # black aún no soporta py314 — usar el más cercano disponible
 include = '\.pyi?$'
 extend-exclude = '''
@@ -114,7 +114,7 @@ extend-exclude = '''
 # ──────────────────────────────────────────────
 [tool.ruff]
 line-length = 100
-target-version = "py312" # igual que black, usar el más cercano soportado
+target-version = "py313" # igual que black, usar el más cercano soportado
 
 [tool.ruff.lint]
 select = [

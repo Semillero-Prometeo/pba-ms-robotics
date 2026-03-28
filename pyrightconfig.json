@@ -13,7 +13,7 @@
   "reportUnknownMemberType": false,
   "reportUnknownArgumentType": false,
   "reportUnknownVariableType": false,
-  "pythonVersion": "3.14",
+  "pythonVersion": "3.13",
   "pythonPlatform": "Linux",
   "typeCheckingMode": "strict"
 }
