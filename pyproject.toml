@@ -9,8 +9,6 @@ description = "Prometeo Backend Architecture Robotics Microservice"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
-    "fastapi>=0.115.0",
-    "uvicorn>=0.34.0",
     "nats-py>=2.12.0",
     "pydantic>=2.5.0",
     "pydantic-settings>=2.1.0",
@@ -18,7 +16,6 @@ dependencies = [
 
 [project.optional-dependencies]
 dev = [
-    "mypy>=1.7.0",
     "pyright>=1.1.320",
     "pytest>=7.4.3",
     "pytest-asyncio>=0.21.1",
@@ -38,33 +35,7 @@ packages = { find = {} }
 "" = "."
 
 # ──────────────────────────────────────────────
-# Mypy — tipado estricto
-# ──────────────────────────────────────────────
-[tool.mypy]
-python_version = "3.13"
-warn_return_any = true
-warn_unused_configs = true
-disallow_untyped_defs = true
-disallow_incomplete_defs = true
-check_untyped_defs = true
-disallow_untyped_decorators = true
-no_implicit_optional = true
-warn_redundant_casts = true
-warn_unused_ignores = true
-warn_no_return = true
-warn_unreachable = true
-strict_equality = true
-strict_optional = true
-show_error_codes = true
-show_error_context = true
-pretty = true
-show_column_numbers = true
-incremental = true
-cache_dir = ".mypy_cache"
-exclude = ["build/", "dist/", ".venv/", "venv/", "__pycache__/", ".mypy_cache/"]
-
-# ──────────────────────────────────────────────
-# Pyright — tipado estricto
+# Pyright — única fuente de verdad para tipado
 # ──────────────────────────────────────────────
 [tool.pyright]
 include = ["src"]
@@ -98,9 +69,7 @@ strictSetInference = true
 # ──────────────────────────────────────────────
 [tool.black]
 line-length = 100
-target-version = [
-    "py313",
-] # black aún no soporta py314 — usar el más cercano disponible
+target-version = ["py313"]
 include = '\.pyi?$'
 extend-exclude = '''
 /(
@@ -110,11 +79,11 @@ extend-exclude = '''
 '''
 
 # ──────────────────────────────────────────────
-# Ruff — linting (API v0.1+ requiere [tool.ruff.lint])
+# Ruff
 # ──────────────────────────────────────────────
 [tool.ruff]
 line-length = 100
-target-version = "py313" # igual que black, usar el más cercano soportado
+target-version = "py313"
 
 [tool.ruff.lint]
 select = [
@@ -125,7 +94,7 @@ select = [
     "B",   # flake8-bugbear
     "C4",  # flake8-comprehensions
     "UP",  # pyupgrade
-    "ANN", # flake8-annotations — refuerza tipado en firmas
+    "ANN", # flake8-annotations
     "RUF", # reglas propias de ruff
 ]
 ignore = [
@@ -136,4 +105,14 @@ ignore = [
 
 [tool.ruff.lint.per-file-ignores]
 "__init__.py" = ["F401"]
-"tests/*" = ["ANN"]      # no forzar anotaciones en tests
+"tests/*"     = ["ANN"]
+
+# ──────────────────────────────────────────────
+# Pytest
+# ──────────────────────────────────────────────
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
+asyncio_mode = "auto"
