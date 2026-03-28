@@ -1,14 +1,16 @@
 import logging
 import sys
 from contextlib import asynccontextmanager
+from typing import AsyncGenerator
+
 from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from src.core.nats.nats_client import nats_handler
+
 # Subscribers
 from src.core.nats.nats_subscribers import create_subscribers
-
-from src.core.nats.nats_client import nats_handler
 
 load_dotenv()
 
@@ -22,7 +24,7 @@ logger.info("[INFO] Iniciando aplicación PBA - MS - Robotics")
 
 
 @asynccontextmanager
-async def app_lifespan(_: FastAPI):
+async def app_lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     await nats_handler.connect()
 
     # Expose dedicated request connection on the main client for downstream usage

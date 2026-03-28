@@ -1,4 +1,5 @@
 from typing import Any
+
 from nats.aio.client import Client as NATSClient
 
 from src.app_controller import AppController

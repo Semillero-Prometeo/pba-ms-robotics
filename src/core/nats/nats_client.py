@@ -1,9 +1,10 @@
 import asyncio
+import json
+import logging
 import socket
 import time
-import logging
-import json
-from typing import Callable, Any
+from typing import Any, Callable
+
 from nats.aio.client import Client as NATSClient
 from nats.aio.errors import ErrNoServers
 from nats.aio.msg import Msg as NATSMessage
