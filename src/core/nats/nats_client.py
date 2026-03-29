@@ -111,7 +111,7 @@ class NatsHandler:
 
                     logger.info("Sending response back via reply")
 
-                    await msg.respond(json.dumps(response_data).encode())
+                    await msg.respond(json.dumps(response_data.model_dump()).encode())
 
                     logger.info("Response sent successfully")
                 else:
