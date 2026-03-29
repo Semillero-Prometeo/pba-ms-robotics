@@ -1,7 +1,7 @@
 import logging
 import sys
+from collections.abc import AsyncGenerator
 from contextlib import asynccontextmanager
-from typing import AsyncGenerator
 
 from dotenv import load_dotenv
 from fastapi import FastAPI
