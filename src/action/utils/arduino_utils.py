@@ -4,15 +4,15 @@ import time
 from serial import Serial
 from serial.tools import list_ports
 
-from action.constants.action_constant import (
+from src.action.constants.action_constant import (
     ARDUINO_BAUDRATE,
     DISCOVERY_BOOT_WAIT_SECONDS,
     LIST_ACTIONS_COMMAND,
     SERIAL_TIMEOUT_SECONDS,
 )
-from action.utils.json_reader import JsonReaderUtil
 from src.action.interfaces.arduino_connection import ArduinoCommandsEnvelope, ArduinoConnection
 from src.action.interfaces.command_interface import Command
+from src.action.utils.json_reader import JsonReaderUtil
 
 
 class ArduinoUtils:

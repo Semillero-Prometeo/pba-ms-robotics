@@ -1,10 +1,12 @@
 import threading
+from dataclasses import dataclass
 
 from pydantic import BaseModel
 from serial import Serial
 
 
-class ArduinoConnection(BaseModel):
+@dataclass(slots=True)
+class ArduinoConnection:
     arduino_id: int
     port: str
     serial: Serial
