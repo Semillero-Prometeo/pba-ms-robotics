@@ -107,7 +107,7 @@ class NatsHandler:
                     logger.info("Processing request-reply pattern")
 
                     data = json.loads(msg.data.decode())
-                    response_data = await handler(data)
+                    response_data = await handler(data["data"])
 
                     logger.info("Sending response back via reply")
 
