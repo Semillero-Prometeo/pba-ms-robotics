@@ -6,7 +6,7 @@ from src.core.settings.env import ROBOTICS_MS
 
 
 class AppController:
-    async def health(self) -> dict[str, Any]:
+    async def health(self, _: dict[str, Any]) -> Health:
         return Health(
             status="UP", timestamp=datetime.now().isoformat(), msName=ROBOTICS_MS
-        ).model_dump()
+        )

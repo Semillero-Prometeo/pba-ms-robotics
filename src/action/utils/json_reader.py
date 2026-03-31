@@ -18,11 +18,14 @@ class JsonReaderUtil:
         lines: list[str] = []
 
         while time.monotonic() - start < timeout_seconds:
+            serial_conn.reset_output_buffer()
+
             raw_line = serial_conn.readline()
             if not raw_line:
                 continue
 
             line = raw_line.decode("utf-8", errors="ignore").strip()
+            logger.info(f"Line: {line}")
             if not line:
                 continue
 

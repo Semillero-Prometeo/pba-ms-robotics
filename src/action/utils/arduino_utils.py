@@ -1,3 +1,4 @@
+import logging
 import threading
 import time
 
@@ -14,6 +15,8 @@ from src.action.interfaces.arduino_connection import ArduinoCommandsEnvelope, Ar
 from src.action.interfaces.command_interface import Command
 from src.action.utils.json_reader import JsonReaderUtil
 
+logger = logging.getLogger(__name__)
+
 
 class ArduinoUtils:
     def __init__(self) -> None:
@@ -24,6 +27,7 @@ class ArduinoUtils:
 
     def sync_connections(self) -> None:
         candidate_ports = self.list_candidate_ports()
+        logger.info(f"Candidate ports: {candidate_ports}")
 
         with self.state_lock:
             existing_ports = set(self.port_index.keys())
@@ -63,7 +67,8 @@ class ArduinoUtils:
         with connection.lock:
             connection.serial.write(f"{LIST_ACTIONS_COMMAND}\n".encode("ascii"))
             connection.serial.flush()
-            payload = self.json_reader.read_json_payload(connection.serial, timeout_seconds=2.5)
+            payload = self.json_reader.read_json_payload(connection.serial, timeout_seconds=10.0)
+            logger.info(f"Payload: {payload}")
 
         parsed = ArduinoCommandsEnvelope.model_validate_json(payload)
         return [
@@ -72,6 +77,8 @@ class ArduinoUtils:
         ]
 
     def list_candidate_ports(self) -> list[str]:
+        logger.info(f"Ports: {list_ports.comports()}")
+
         ports = sorted(port.device for port in list_ports.comports())
         return [
             port
@@ -86,4 +93,3 @@ class ArduinoUtils:
 
     def drain_serial(self, serial_conn: Serial) -> None:
         serial_conn.reset_input_buffer()
-        serial_conn.reset_output_buffer()

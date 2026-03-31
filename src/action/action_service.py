@@ -16,6 +16,7 @@ class ActionService:
 
         for connection in self.arduino_utils.connections.values():
             commands.extend(self.arduino_utils.get_actions_from_arduino(connection))
+            logger.info(f"Commands: {commands}")
 
         return commands
 
@@ -27,11 +28,15 @@ class ActionService:
             raise ValueError(f"Arduino con id {arduino_id} no encontrado")
 
         payload = f"{action_id}\n".encode("ascii")
+        logger.info(f"Payload: {payload}")
+
         with connection.lock:
+            connection.serial.reset_output_buffer()
             connection.serial.write(payload)
             connection.serial.flush()
             response = self.arduino_utils.json_reader.read_first_meaningful_line(
                 connection.serial, timeout_seconds=2.0
             )
+            logger.info(f"Response: {response}")
 
         return response
