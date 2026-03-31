@@ -2,6 +2,7 @@ import logging
 
 from src.action.interfaces.command_interface import Command
 from src.action.utils.arduino_utils import ArduinoUtils
+from src.core.interfaces.paginated_response import StatusResponse
 
 logger = logging.getLogger(__name__)
 
@@ -20,7 +21,7 @@ class ActionService:
 
         return commands
 
-    def execute_action(self, action_id: int, arduino_id: int) -> str:
+    def execute_action(self, action_id: int, arduino_id: int) -> StatusResponse:
         self.arduino_utils.sync_connections()
         connection = self.arduino_utils.connections.get(arduino_id)
 
@@ -39,4 +40,6 @@ class ActionService:
             )
             logger.info(f"Response: {response}")
 
-        return response
+            self.arduino_utils.drain_serial(connection.serial)
+
+        return StatusResponse(status="ok", response=response or "")

@@ -24,9 +24,9 @@ class ActionController:
     async def execute_action(self, data: ExecuteActionPayload) -> StatusResponse:
         payload: ExecuteActionPayload = ExecuteActionPayload.model_validate(data)
 
-        response: str = self.action_service.execute_action(
+        response: StatusResponse = self.action_service.execute_action(
             action_id=payload.action_id,
             arduino_id=payload.arduino_id,
         )
 
-        return StatusResponse(status="ok", response=response or "")
+        return response
