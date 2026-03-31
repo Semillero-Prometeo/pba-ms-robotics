@@ -42,7 +42,8 @@ class JsonReaderUtil:
 
         raise TimeoutError("No se recibió JSON de acciones desde el Arduino")
 
-    def read_first_meaningful_line(self, serial_conn: Serial, timeout_seconds: float) -> str:
+    def read_first_meaningful_line(self, serial_conn: Serial, timeout_seconds: float) -> list[str]:
+        lines: list[str] = []
         start = time.monotonic()
         while time.monotonic() - start < timeout_seconds:
             raw_line = serial_conn.readline()
@@ -50,7 +51,7 @@ class JsonReaderUtil:
                 continue
             text = raw_line.decode("utf-8", errors="ignore").strip()
             if text:
-                return text
+                lines.append(text)
 
         logger.warning("No hubo respuesta del Arduino tras ejecutar acción")
-        return ""
+        return lines

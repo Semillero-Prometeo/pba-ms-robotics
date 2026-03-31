@@ -32,4 +32,4 @@ usbipd list // Verificar shared
 // Abrir una terminal ubuntu para mantener la wsl activa
 
 usbipd attach --wsl --busid <busid>
-usbipd attach --wsl --busid 2-2
+usbipd attach --wsl --busid 3-1

@@ -4,7 +4,7 @@ from pydantic import BaseModel
 
 from src.action.action_service import ActionService
 from src.action.interfaces.command_interface import Command
-from src.core.interfaces.paginated_response import PaginatedResponse, StatusResponse
+from src.core.interfaces.paginated_response import ExecuteActionResponse, PaginatedResponse
 
 
 class ExecuteActionPayload(BaseModel):
@@ -21,10 +21,10 @@ class ActionController:
 
         return PaginatedResponse[Command](total=len(commands), data=commands)
 
-    async def execute_action(self, data: ExecuteActionPayload) -> StatusResponse:
+    async def execute_action(self, data: ExecuteActionPayload) -> ExecuteActionResponse:
         payload: ExecuteActionPayload = ExecuteActionPayload.model_validate(data)
 
-        response: StatusResponse = self.action_service.execute_action(
+        response: ExecuteActionResponse = self.action_service.execute_action(
             action_id=payload.action_id,
             arduino_id=payload.arduino_id,
         )

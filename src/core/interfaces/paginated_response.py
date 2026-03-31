@@ -9,3 +9,8 @@ class PaginatedResponse[T](BaseModel):
 class StatusResponse(BaseModel):
     status: str
     response: str | None = None
+
+
+class ExecuteActionResponse(BaseModel):
+    status: str
+    response: list[str]
