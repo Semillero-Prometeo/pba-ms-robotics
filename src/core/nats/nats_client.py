@@ -114,7 +114,21 @@ class NatsHandler:
 
                     logger.info("Sending response back via reply")
 
-                    await msg.respond(response_data.model_dump_json().encode())
+                    # NestJS NATS `client.send()` espera un "envelope" interno con `response`
+                    # y `isDisposed=true` para poder completar el Observable.
+                    # Si devolvemos un JSON plano (por ejemplo {status, response}) sin
+                    # `isDisposed`, el gateway puede quedarse esperando indefinidamente.
+                    if hasattr(response_data, "model_dump"):
+                        response_payload = response_data.model_dump()
+                    elif hasattr(response_data, "dict"):
+                        # Compatibilidad si algún modelo usa pydantic v1.
+                        response_payload = response_data.dict()
+                    else:
+                        response_payload = response_data
+
+                    await msg.respond(
+                        json.dumps({"response": response_payload, "isDisposed": True}).encode()
+                    )
 
                     logger.info("Response sent successfully")
                 else:
@@ -125,11 +139,13 @@ class NatsHandler:
             except json.JSONDecodeError as e:
                 logger.error(f"JSON decode error: {e}")
                 if msg.reply:
-                    await msg.respond(json.dumps({"error": "Invalid JSON"}).encode())
+                    await msg.respond(
+                        json.dumps({"err": "Invalid JSON", "isDisposed": True}).encode()
+                    )
             except Exception as e:
                 logger.error(f"Handler error: {e}")
                 if msg.reply:
-                    await msg.respond(json.dumps({"error": str(e)}).encode())
+                    await msg.respond(json.dumps({"err": str(e), "isDisposed": True}).encode())
 
         logger.info(f"Subscribing to subject: {subscriber.subject}")
         await self.nc.subscribe(subscriber.subject, cb=message_handler)
