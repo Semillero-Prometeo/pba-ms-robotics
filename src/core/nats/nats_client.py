@@ -3,11 +3,12 @@ import json
 import logging
 import socket
 import time
-from typing import Any, Callable
 
 from nats.aio.client import Client as NATSClient
 from nats.aio.errors import ErrNoServers
 from nats.aio.msg import Msg as NATSMessage
+
+from src.core.nats.interfaces.nats_interface import NatsSubscriber
 
 # Envs
 from src.core.settings.env import NATS_SERVER
@@ -96,8 +97,9 @@ class NatsHandler:
             self.connected = False
             logger.info("Disconnected from NATS")
 
-    async def subscribe(self, subject: str, handler: Callable) -> None:
+    async def subscribe(self, subscriber: NatsSubscriber) -> None:
         async def message_handler(msg: NATSMessage) -> None:
+            print(f"Message: {msg}")
             try:
                 logger.info(f"Received message on subject: {msg.subject}")
                 logger.info(f"Message reply: {msg.reply}")
@@ -107,17 +109,18 @@ class NatsHandler:
                     logger.info("Processing request-reply pattern")
 
                     data = json.loads(msg.data.decode())
-                    response_data = await handler(data["data"])
+                    response_data = await subscriber.controller(data["data"])
+                    print(f"Response data: {response_data}")
 
                     logger.info("Sending response back via reply")
 
-                    await msg.respond(json.dumps(response_data.model_dump()).encode())
+                    await msg.respond(response_data.model_dump_json().encode())
 
                     logger.info("Response sent successfully")
                 else:
                     logger.info("Processing regular message")
                     data = json.loads(msg.data.decode())
-                    await handler(data)
+                    await subscriber.controller(data)
 
             except json.JSONDecodeError as e:
                 logger.error(f"JSON decode error: {e}")
@@ -128,8 +131,8 @@ class NatsHandler:
                 if msg.reply:
                     await msg.respond(json.dumps({"error": str(e)}).encode())
 
-        logger.info(f"Subscribing to subject: {subject}")
-        await self.nc.subscribe(subject, cb=message_handler)
+        logger.info(f"Subscribing to subject: {subscriber.subject}")
+        await self.nc.subscribe(subscriber.subject, cb=message_handler)
 
 
 nats_handler: NatsHandler = NatsHandler()

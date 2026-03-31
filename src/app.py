@@ -7,6 +7,7 @@ from dotenv import load_dotenv
 from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 
+from src.core.nats.interfaces.nats_interface import NatsSubscriber
 from src.core.nats.nats_client import nats_handler
 
 # Subscribers
@@ -33,10 +34,10 @@ async def app_lifespan(_: FastAPI) -> AsyncGenerator[None, None]:
     except Exception:
         pass
 
-    subscribers = create_subscribers(nats_handler.nc)
+    subscribers: list[NatsSubscriber] = create_subscribers(nats_handler.nc)
 
     for subscriber in subscribers:
-        await nats_handler.subscribe(subscriber["subject"], subscriber["controller"])
+        await nats_handler.subscribe(subscriber)
 
     yield
     await nats_handler.disconnect()
