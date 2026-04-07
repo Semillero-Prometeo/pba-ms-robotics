@@ -25,7 +25,7 @@ python -m pip install -e ".[dev]"
 usbipd list
 
 usbipd bind --busid <Bus de las camaras>
-usbipd bind --busid 2-2
+usbipd bind --busid 3-1
 
 usbipd list // Verificar shared
 
