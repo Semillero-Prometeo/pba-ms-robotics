@@ -3,13 +3,31 @@ FROM python:3.13-slim
 ENV PYTHONDONTWRITEBYTECODE=1
 ENV PYTHONUNBUFFERED=1
 
+# ---- Sistema base + dependencias ----
 RUN apt-get update && apt-get install -y --no-install-recommends \
     pulseaudio-utils \
     alsa-utils \
     espeak-ng \
+    curl \
+    ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
+# ---- Instalar Piper ----
+ARG PIPER_VERSION=1.2.0
+
+RUN curl -L -o /tmp/piper.tar.gz \
+    https://github.com/rhasspy/piper/releases/download/v${PIPER_VERSION}/piper_linux_x86_64.tar.gz \
+    && tar -xzf /tmp/piper.tar.gz -C /tmp \
+    && mv /tmp/piper /opt/piper \
+    && ln -s /opt/piper/piper /usr/local/bin/piper \
+    && rm /tmp/piper.tar.gz
+
+# (Opcional) carpeta para modelos
+RUN mkdir -p /opt/piper/models
+
+# ---- Python ----
 RUN pip install --upgrade pip
+
 WORKDIR /usr/src/app
 
 COPY pyproject.toml ./
