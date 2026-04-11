@@ -9,3 +9,6 @@ if not NATS_SERVER:
     raise ValueError("NATS_SERVER environment variable is NOT set")
 
 ROBOTICS_MS: str = "ROBOTICS_MS"
+
+# Management MS (OpenAI chat via NATS)
+MANAGEMENT_MS: str = "MANAGEMENT_MS"
