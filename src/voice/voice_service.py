@@ -10,9 +10,8 @@ from typing import TYPE_CHECKING
 
 from pydantic import BaseModel, Field
 
-from src.core.nats.nest_request import NestRpcError, nest_request
 from src.voice.output.sink import get_preferred_sink_name
-from src.voice.playback import play_wav_file
+from src.voice.utils.playback import play_wav_file
 from src.voice.tts.tts_local import synthesize_speech_to_wav
 
 if TYPE_CHECKING:

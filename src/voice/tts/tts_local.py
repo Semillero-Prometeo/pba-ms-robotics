@@ -8,7 +8,7 @@ import shutil
 import subprocess
 from pathlib import Path
 
-from src.voice.errors import VoicePlaybackError
+from src.voice.utils.errors import VoicePlaybackError
 
 logger = logging.getLogger(__name__)
 
