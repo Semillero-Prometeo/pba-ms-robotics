@@ -3,6 +3,7 @@ import json
 import logging
 import socket
 import time
+from typing import Any
 
 from nats.aio.client import Client as NATSClient
 from nats.aio.errors import ErrNoServers
@@ -14,6 +15,14 @@ from src.core.nats.interfaces.nats_interface import NatsSubscriber
 from src.core.settings.env import NATS_SERVER
 
 logger: logging.Logger = logging.getLogger(__name__)
+
+
+def _rpc_error_payload(exc: BaseException) -> str | dict[str, Any]:
+    """Nest gateway maps ``{ statusCode, message }`` to HTTP; plain strings become 400."""
+    code = getattr(exc, "status_code", None)
+    if isinstance(code, int) and 100 <= code <= 599:
+        return {"statusCode": code, "message": str(exc)}
+    return str(exc)
 
 
 class NatsHandler:
@@ -145,7 +154,10 @@ class NatsHandler:
             except Exception as e:
                 logger.error(f"Handler error: {e}")
                 if msg.reply:
-                    await msg.respond(json.dumps({"err": str(e), "isDisposed": True}).encode())
+                    err_body = _rpc_error_payload(e)
+                    await msg.respond(
+                        json.dumps({"err": err_body, "isDisposed": True}).encode()
+                    )
 
         logger.info(f"Subscribing to subject: {subscriber.subject}")
         await self.nc.subscribe(subscriber.subject, cb=message_handler)

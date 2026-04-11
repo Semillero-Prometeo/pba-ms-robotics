@@ -7,6 +7,8 @@ import os
 import shutil
 import subprocess
 
+from src.voice.errors import VoicePlaybackError
+
 logger = logging.getLogger(__name__)
 
 _ESPEAK_VOICE_ENV = "ESPEAK_VOICE"
@@ -44,10 +46,14 @@ def synthesize_speech_to_wav(text: str, out_path: str) -> None:
         )
 
     logger.info("TTS: using %s voice=%s", espeak, voice)
-    subprocess.run(
-        [espeak, "-v", voice, "-w", out_path, text],
-        capture_output=True,
-        text=True,
-        timeout=300,
-        check=True,
-    )
+    try:
+        subprocess.run(
+            [espeak, "-v", voice, "-w", out_path, text],
+            capture_output=True,
+            text=True,
+            timeout=300,
+            check=True,
+        )
+    except subprocess.CalledProcessError as exc:
+        detail = (exc.stderr or exc.stdout or "").strip() or str(exc)
+        raise VoicePlaybackError(f"espeak-ng falló: {detail}", status_code=503) from exc
