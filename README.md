@@ -4,12 +4,19 @@ PROMETEO Backend Architecture Robotics Microservice
 
 ## Voz (TTS) y variables de entorno
 
-- **Piper (recomendado):** modelos en [rhasspy/piper-voices (Hugging Face)](https://huggingface.co/rhasspy/piper-voices). Busca un paquete `es_ES` (por ejemplo `es_ES-lessac-medium`), descarga el `.onnx` y el `.onnx.json`, y apunta `PIPER_MODEL_PATH` al fichero `.onnx`. Necesitas el binario [piper](https://github.com/rhasspy/piper/releases) en el `PATH`.
-- **Fallback espeak-ng:** sin Piper, se usa `espeak-ng`; `ESPEAK_VOICE=es` es español (ajusta según `espeak-ng --voices`).
-- **`PULSE_SINK`:** nombre del sink de salida (`pactl list short sinks`); vacío = selección automática (Bluetooth antes que USB).
-- **Docker sin altavoz:** `paplay`/`aplay` suelen fallar (no hay `/dev/snd` o PulseAudio). Usa `VOICE_SKIP_PLAYBACK=1` para generar audio en fichero sin reproducir, o monta audio (véase comentarios en `docker-compose.yml` para `devices: /dev/snd`) en un host Linux con sonido.
+- **Modelos en el repo:** coloca `*.onnx` y el `*.onnx.json` correspondiente en `src/core/models/voice/`. Si no defines `PIPER_MODEL_PATH`, se usa el primer `.onnx` de esa carpeta.
+- **Ruta en Docker:** el código vive en `/usr/src/app`. Ejemplo:  
+  `MS_ROBOTICS_PIPER_MODEL_PATH=/usr/src/app/src/core/models/voice/es_ES-davefx-medium.onnx`  
+  (no uses `/src/voice/models/...`: esa ruta no existe en la imagen).
+- **Piper (recomendado):** modelos en [rhasspy/piper-voices (Hugging Face)](https://huggingface.co/rhasspy/piper-voices). El `Dockerfile.dev` instala el binario `piper`.
+- **Fallback espeak-ng:** si Piper no aplica; `ESPEAK_VOICE=es` por defecto.
+- **Bluetooth / PulseAudio en Docker:** dentro del contenedor no hay servidor Pulse → `Connection refused`. Para usar el **PulseAudio del host Linux** (donde aparece el sink Bluetooth `bluez`):
+  1. En el `.env` del launcher: `MS_ROBOTICS_PULSE_SERVER=unix:/run/user/TU_UID/pulse/native` (sustituye `TU_UID`, p. ej. `id -u`).
+  2. En `docker-compose.yml`, descomenta el volumen que monta `/run/user/TU_UID/pulse` (mismo UID que en la ruta).
+  3. Opcional: `PULSE_SINK` con el nombre exacto del sink BT si la heurística no basta.
+- **Solo probar TTS sin reproducir:** `MS_ROBOTICS_VOICE_SKIP_PLAYBACK=1`.
 
-Los errores de reproducción devuelven **503** al gateway cuando el mensaje incluye código estructurado (antes aparecía 400 por defecto).
+Los fallos de reproducción devuelven **503** al gateway cuando el error lleva `statusCode` estructurado.
 
 # Elimina el venv existente
 
