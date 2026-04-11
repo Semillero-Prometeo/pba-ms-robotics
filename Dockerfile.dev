@@ -12,15 +12,16 @@ RUN apt-get update && apt-get install -y --no-install-recommends \
     ca-certificates \
     && rm -rf /var/lib/apt/lists/*
 
-# ---- Instalar Piper ----
-ARG PIPER_VERSION=1.2.0
+# ---- Instalar Piper (tags en GitHub son por fecha, p. ej. 2023.11.14-2, no semver v1.x) ----
+ARG PIPER_RELEASE=2023.11.14-2
 
-RUN curl -L -o /tmp/piper.tar.gz \
-    https://github.com/rhasspy/piper/releases/download/v${PIPER_VERSION}/piper_linux_x86_64.tar.gz \
+RUN curl -fSL -o /tmp/piper.tar.gz \
+    "https://github.com/rhasspy/piper/releases/download/${PIPER_RELEASE}/piper_linux_x86_64.tar.gz" \
     && tar -xzf /tmp/piper.tar.gz -C /tmp \
     && mv /tmp/piper /opt/piper \
     && ln -s /opt/piper/piper /usr/local/bin/piper \
-    && rm /tmp/piper.tar.gz
+    && rm /tmp/piper.tar.gz \
+    && test -x /opt/piper/piper
 
 # (Opcional) carpeta para modelos
 RUN mkdir -p /opt/piper/models
