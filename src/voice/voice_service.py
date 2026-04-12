@@ -52,5 +52,7 @@ class VoiceService:
         self._nc = nc
 
     async def speak_only(self, message: str) -> SpeakResult:
+        return SpeakResult(message=message, spoken=True, sink=get_preferred_sink_name())
+
         spoken, sink = await asyncio.to_thread(_synthesize_and_play_sync, message)
         return SpeakResult(message=message, spoken=spoken, sink=sink)
