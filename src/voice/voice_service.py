@@ -11,9 +11,9 @@ from typing import TYPE_CHECKING
 from pydantic import BaseModel, Field
 
 from src.voice.output.sink import get_preferred_sink_name
+from src.voice.tts.tts_local import synthesize_speech_to_wav
 from src.voice.utils.playback import play_wav_file
 from src.voice.utils.speech_text import format_text_for_speech
-from src.voice.tts.tts_local import synthesize_speech_to_wav
 
 if TYPE_CHECKING:
     from nats.aio.client import Client as NATSClient

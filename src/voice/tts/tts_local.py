@@ -51,7 +51,9 @@ def _resolve_piper_model_path() -> str | None:
             logger.info("PIPER_MODEL_PATH no definido; usando modelo en repo: %s", fallback)
         return fallback
     if env_path:
-        logger.warning("PIPER_MODEL_PATH inválido y no hay .onnx en src/core/models/voice: %s", env_path)
+        logger.warning(
+            "PIPER_MODEL_PATH inválido y no hay .onnx en src/core/models/voice: %s", env_path
+        )
     return None
 
 
@@ -76,7 +78,9 @@ def synthesize_speech_to_wav(text: str, out_path: str) -> None:
         )
         if proc.returncode == 0 and os.path.isfile(out_path) and os.path.getsize(out_path) > 0:
             return
-        logger.warning("Piper failed (%s), falling back to espeak: %s", proc.returncode, proc.stderr)
+        logger.warning(
+            "Piper failed (%s), falling back to espeak: %s", proc.returncode, proc.stderr
+        )
 
     voice = (os.getenv(_ESPEAK_VOICE_ENV) or _DEFAULT_ESPEAK_VOICE).strip() or _DEFAULT_ESPEAK_VOICE
     espeak = shutil.which("espeak-ng") or shutil.which("espeak")
