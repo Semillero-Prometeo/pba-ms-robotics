@@ -1,6 +1,7 @@
 import logging
 import threading
 import time
+from dataclasses import dataclass
 
 from serial import Serial
 from serial.tools import list_ports
@@ -16,6 +17,12 @@ from src.action.interfaces.command_interface import Command
 from src.action.utils.json_reader import JsonReaderUtil
 
 logger = logging.getLogger(__name__)
+
+
+@dataclass(slots=True)
+class PortMetadata:
+    serial_number: str | None
+    hwid: str | None
 
 
 class ArduinoUtils:
@@ -86,6 +93,15 @@ class ArduinoUtils:
             if port.startswith("/dev/ttyACM") or port.startswith("/dev/ttyUSB")
         ]
 
+    def get_port_metadata(self, port: str) -> PortMetadata:
+        for candidate in list_ports.comports():
+            if candidate.device == port:
+                return PortMetadata(
+                    serial_number=getattr(candidate, "serial_number", None),
+                    hwid=getattr(candidate, "hwid", None),
+                )
+        return PortMetadata(serial_number=None, hwid=None)
+
     def next_arduino_id(self) -> int:
         if not self.connections:
             return 0
@@ -93,3 +109,10 @@ class ArduinoUtils:
 
     def drain_serial(self, serial_conn: Serial) -> None:
         serial_conn.reset_input_buffer()
+
+
+_shared_arduino_utils = ArduinoUtils()
+
+
+def get_arduino_utils() -> ArduinoUtils:
+    return _shared_arduino_utils
