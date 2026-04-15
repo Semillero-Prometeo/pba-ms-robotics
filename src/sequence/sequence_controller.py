@@ -6,6 +6,8 @@ from src.sequence.interfaces.sequence_interface import (
     PcaScanPayload,
     SaveSequencePayload,
     SequenceByNamePayload,
+    SequenceChainStartPayload,
+    SequenceChainStatusResponse,
     SequencePlaybackPayload,
     SequenceStatusResponse,
 )
@@ -50,3 +52,14 @@ class SequenceController:
     async def stop_playback(self, data: StopSequencePayload) -> SequenceStatusResponse:
         _ = StopSequencePayload.model_validate(data)
         return self.sequence_service.stop_playback()
+
+    async def start_chain(self, data: SequenceChainStartPayload) -> SequenceStatusResponse:
+        payload = SequenceChainStartPayload.model_validate(data)
+        return self.sequence_service.start_chain(payload.items)
+
+    async def stop_chain(self, data: StopSequencePayload) -> SequenceStatusResponse:
+        _ = StopSequencePayload.model_validate(data)
+        return self.sequence_service.stop_chain()
+
+    async def chain_status(self, _: dict[str, Any]) -> SequenceChainStatusResponse:
+        return self.sequence_service.chain_status()

@@ -11,6 +11,7 @@ from src.sequence.interfaces.sequence_interface import (
     PcaScanPayload,
     SaveSequencePayload,
     SequenceByNamePayload,
+    SequenceChainStartPayload,
     SequencePlaybackPayload,
 )
 from src.sequence.sequence_controller import SequenceController, StopSequencePayload
@@ -82,6 +83,22 @@ def create_subscribers(nats_client: NATSClient) -> list[NatsSubscriber]:
                 StopSequencePayload.model_validate(data)
             ),
             subject=f"{ROBOTICS_MS}.sequenceService.stopPlayback",
+        ),
+        NatsSubscriber(
+            controller=lambda data: sequence_controller.start_chain(
+                SequenceChainStartPayload.model_validate(data)
+            ),
+            subject=f"{ROBOTICS_MS}.sequenceService.startChain",
+        ),
+        NatsSubscriber(
+            controller=lambda data: sequence_controller.stop_chain(
+                StopSequencePayload.model_validate(data)
+            ),
+            subject=f"{ROBOTICS_MS}.sequenceService.stopChain",
+        ),
+        NatsSubscriber(
+            controller=sequence_controller.chain_status,
+            subject=f"{ROBOTICS_MS}.sequenceService.chainStatus",
         ),
         NatsSubscriber(
             controller=lambda data: voice_service.speak_only(

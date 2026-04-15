@@ -12,6 +12,8 @@ from src.sequence.interfaces.sequence_interface import (
     MotionSequenceFile,
     PcaScanResponse,
     SequenceArduino,
+    SequenceChainItem,
+    SequenceChainStatusResponse,
     SequenceFileInfo,
     SequenceListResponse,
     SequenceStatusResponse,
@@ -28,6 +30,12 @@ class SequenceService:
         self._playback_stop_event: threading.Event | None = None
         self._playback_thread: threading.Thread | None = None
         self._playback_state_lock = threading.Lock()
+        self._chain_stop_event: threading.Event | None = None
+        self._chain_thread: threading.Thread | None = None
+        self._chain_state_lock = threading.Lock()
+        self._chain_current_sequence: str | None = None
+        self._chain_completed_items = 0
+        self._chain_total_items = 0
 
     def list_arduinos(self) -> list[SequenceArduino]:
         self.arduino_utils.sync_connections()
@@ -64,9 +72,7 @@ class SequenceService:
     def list_sequences(self) -> SequenceListResponse:
         sequences: list[SequenceFileInfo] = []
         for file_path in sorted(self.data_dir.glob("*.json")):
-            sequences.append(
-                SequenceFileInfo(name=file_path.stem, file_name=file_path.name)
-            )
+            sequences.append(SequenceFileInfo(name=file_path.stem, file_name=file_path.name))
         return SequenceListResponse(total=len(sequences), data=sequences)
 
     def get_sequence(self, name: str) -> MotionSequenceFile:
@@ -77,7 +83,9 @@ class SequenceService:
         payload = json.loads(file_path.read_text(encoding="utf-8"))
         return self._parse_sequence_payload(name=name, payload=payload)
 
-    def save_sequence(self, sequence: MotionSequenceFile, overwrite: bool) -> SequenceStatusResponse:
+    def save_sequence(
+        self, sequence: MotionSequenceFile, overwrite: bool
+    ) -> SequenceStatusResponse:
         file_path = self._resolve_sequence_path(sequence.name)
         if file_path.exists() and not overwrite:
             raise ValueError(
@@ -130,6 +138,57 @@ class SequenceService:
         stop_event.set()
         thread.join(timeout=2.0)
         return SequenceStatusResponse(status="ok", message="Secuencia detenida")
+
+    def start_chain(self, items: list[SequenceChainItem]) -> SequenceStatusResponse:
+        if not items:
+            raise ValueError("La cadena de secuencias no puede estar vacía")
+
+        with self._chain_state_lock:
+            if self._chain_thread is not None and self._chain_thread.is_alive():
+                raise ValueError("Ya existe una cadena en ejecución")
+
+            stop_event = threading.Event()
+            chain_thread = threading.Thread(
+                target=self._run_chain,
+                args=(items, stop_event),
+                name="sequence-chain-playback",
+                daemon=True,
+            )
+            self._chain_stop_event = stop_event
+            self._chain_thread = chain_thread
+            self._chain_current_sequence = None
+            self._chain_completed_items = 0
+            self._chain_total_items = sum(item.repeat for item in items)
+            chain_thread.start()
+
+        return SequenceStatusResponse(status="ok", message="Cadena iniciada")
+
+    def stop_chain(self) -> SequenceStatusResponse:
+        with self._chain_state_lock:
+            stop_event = self._chain_stop_event
+            thread = self._chain_thread
+            self._chain_stop_event = None
+            self._chain_thread = None
+            self._chain_current_sequence = None
+
+        if stop_event is None or thread is None:
+            return SequenceStatusResponse(status="ok", message="No había cadena en ejecución")
+
+        stop_event.set()
+        self.stop_playback()
+        thread.join(timeout=2.0)
+        return SequenceStatusResponse(status="ok", message="Cadena detenida")
+
+    def chain_status(self) -> SequenceChainStatusResponse:
+        with self._chain_state_lock:
+            running = self._chain_thread is not None and self._chain_thread.is_alive()
+            return SequenceChainStatusResponse(
+                status="ok",
+                running=running,
+                current_sequence=self._chain_current_sequence,
+                completed_items=self._chain_completed_items,
+                total_items=self._chain_total_items,
+            )
 
     def _read_pcas_line(self, connection: ArduinoConnection) -> list[int]:
         deadline = time.monotonic() + 2.0
@@ -195,6 +254,49 @@ class SequenceService:
                 if self._playback_thread is threading.current_thread():
                     self._playback_thread = None
                     self._playback_stop_event = None
+
+    def _run_chain(self, items: list[SequenceChainItem], stop_event: threading.Event) -> None:
+        try:
+            for item in items:
+                for _ in range(item.repeat):
+                    if stop_event.is_set():
+                        return
+
+                    sequence = self.get_sequence(item.name)
+                    with self._chain_state_lock:
+                        self._chain_current_sequence = item.name
+
+                    self.start_playback(sequence.blocks)
+                    self._wait_for_playback(stop_event)
+                    if stop_event.is_set():
+                        return
+
+                    with self._chain_state_lock:
+                        self._chain_completed_items += 1
+
+                    if item.delay_ms > 0:
+                        self._sleep_with_stop(item.delay_ms / 1000, stop_event)
+                        if stop_event.is_set():
+                            return
+        finally:
+            with self._chain_state_lock:
+                if self._chain_thread is threading.current_thread():
+                    self._chain_thread = None
+                    self._chain_stop_event = None
+                    self._chain_current_sequence = None
+
+    def _wait_for_playback(self, stop_event: threading.Event) -> None:
+        while not stop_event.is_set():
+            with self._playback_state_lock:
+                running = self._playback_thread is not None and self._playback_thread.is_alive()
+            if not running:
+                return
+            time.sleep(0.05)
+
+    def _sleep_with_stop(self, seconds: float, stop_event: threading.Event) -> None:
+        deadline = time.monotonic() + seconds
+        while not stop_event.is_set() and time.monotonic() < deadline:
+            time.sleep(0.05)
 
     def _send_block_command(self, block: MotionBlock) -> None:
         connection = self.arduino_utils.connections.get(block.arduino_id)

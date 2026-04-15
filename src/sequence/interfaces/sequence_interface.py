@@ -100,3 +100,25 @@ class PcaScanResponse(BaseModel):
 class SequenceStatusResponse(BaseModel):
     status: str
     message: str | None = None
+
+
+class SequenceChainItem(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+    name: str
+    repeat: int = Field(default=1, ge=1, le=20)
+    delay_ms: int = Field(default=0, ge=0, le=30000)
+
+
+class SequenceChainStartPayload(BaseModel):
+    model_config = ConfigDict(extra="forbid", strict=True)
+
+    items: list[SequenceChainItem]
+
+
+class SequenceChainStatusResponse(BaseModel):
+    status: str
+    running: bool
+    current_sequence: str | None = None
+    completed_items: int = 0
+    total_items: int = 0
