@@ -121,7 +121,7 @@ class NatsHandler:
                     response_data = await subscriber.controller(data["data"])
                     print(f"Response data: {response_data}")
 
-                    logger.info("Sending response back via reply")
+                    # logger.info("Sending response back via reply")
 
                     # NestJS NATS `client.send()` espera un "envelope" interno con `response`
                     # y `isDisposed=true` para poder completar el Observable.
@@ -139,7 +139,7 @@ class NatsHandler:
                         json.dumps({"response": response_payload, "isDisposed": True}).encode()
                     )
 
-                    logger.info("Response sent successfully")
+                    # logger.info("Response sent successfully")
                 else:
                     logger.info("Processing regular message")
                     data = json.loads(msg.data.decode())
@@ -155,9 +155,7 @@ class NatsHandler:
                 logger.error(f"Handler error: {e}")
                 if msg.reply:
                     err_body = _rpc_error_payload(e)
-                    await msg.respond(
-                        json.dumps({"err": err_body, "isDisposed": True}).encode()
-                    )
+                    await msg.respond(json.dumps({"err": err_body, "isDisposed": True}).encode())
 
         logger.info(f"Subscribing to subject: {subscriber.subject}")
         await self.nc.subscribe(subscriber.subject, cb=message_handler)
