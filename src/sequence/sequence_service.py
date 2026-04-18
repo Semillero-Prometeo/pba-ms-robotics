@@ -304,7 +304,8 @@ class SequenceService:
             logger.warning("Arduino %s desconectado durante playback", block.arduino_id)
             return
 
-        payload = f"PCA,{block.pca},{block.servo},{block.pos},{block.vel}\n".encode("ascii")
+        payload = f"PCA,{block.pca},{block.servo},{block.pos},{block.vel}\n"
+        print(payload)
         with connection.lock:
-            connection.serial.write(payload)
+            connection.serial.write(payload.encode("ascii"))
             connection.serial.flush()

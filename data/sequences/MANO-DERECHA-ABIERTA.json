@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "name": "MANO DERECHA ABIERTA",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 12,
+      "inicio": 0.03,
+      "dur": 2.0,
+      "pos": 250,
+      "vel": 5,
+      "nombre": "ANULAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 15,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 650,
+      "vel": 5,
+      "nombre": "PULGAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 250,
+      "vel": 5,
+      "nombre": "INDICE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 13,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 5,
+      "nombre": "CORAZON"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 10,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 350,
+      "vel": 5,
+      "nombre": "MEÑIQUE"
+    }
+  ]
+}

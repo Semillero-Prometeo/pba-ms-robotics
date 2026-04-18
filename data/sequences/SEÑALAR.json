@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "name": "SEÑALAR",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 12,
+      "inicio": 1.01,
+      "dur": 2.0,
+      "pos": 800,
+      "vel": 5,
+      "nombre": "ANULAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 15,
+      "inicio": 1.0,
+      "dur": 2.0,
+      "pos": 450,
+      "vel": 5,
+      "nombre": "PULGAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 14,
+      "inicio": 1.0,
+      "dur": 2.0,
+      "pos": 250,
+      "vel": 5,
+      "nombre": "INDICE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 13,
+      "inicio": 1.0,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 5,
+      "nombre": "CORAZON"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 10,
+      "inicio": 1.01,
+      "dur": 2.0,
+      "pos": 800,
+      "vel": 5,
+      "nombre": "MEÑIQUE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 2,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 340,
+      "vel": 5,
+      "nombre": "EXTENSEION DERECHA"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 3,
+      "inicio": 0.49,
+      "dur": 2.0,
+      "pos": 480,
+      "vel": 5,
+      "nombre": "ANTEBRAZO"
+    }
+  ]
+}

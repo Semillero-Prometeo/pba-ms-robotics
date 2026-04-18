@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "name": "SORPRESA NEUTRA",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 2.01,
+      "dur": 2.0,
+      "pos": 580,
+      "vel": 5,
+      "nombre": "Ceja Derecha"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 2.01,
+      "dur": 2.0,
+      "pos": 550,
+      "vel": 5,
+      "nombre": "Ceja Izquierdaa"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 2.0,
+      "dur": 2.0,
+      "pos": 580,
+      "vel": 5,
+      "nombre": "Frente Izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 2.01,
+      "dur": 2.0,
+      "pos": 580,
+      "vel": 5,
+      "nombre": "Frente Dere"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 2.02,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "Parpado superior Izquierdo"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 2.01,
+      "dur": 2.0,
+      "pos": 480,
+      "vel": 5,
+      "nombre": "Parpado superior derecho"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 2.0,
+      "dur": 2.0,
+      "pos": 750,
+      "vel": 5,
+      "nombre": "Parpado inferior izquierdo"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 2.0,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "Parpado inferior derecho"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 0,
+      "inicio": 2.02,
+      "dur": 2.0,
+      "pos": 200,
+      "vel": 5,
+      "nombre": "MANDIVULA"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 0,
+      "inicio": 1.27,
+      "dur": 2.0,
+      "pos": 720,
+      "vel": 5,
+      "nombre": "HOMBRO DERECHO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 15,
+      "inicio": 1.27,
+      "dur": 2.0,
+      "pos": 560,
+      "vel": 5,
+      "nombre": "HOMBRO IZQUIERDO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 11,
+      "inicio": 0.04,
+      "dur": 2.0,
+      "pos": 380,
+      "vel": 5,
+      "nombre": "ANTEBRAZO IZQUIERDO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 3,
+      "inicio": 0.05,
+      "dur": 2.0,
+      "pos": 540,
+      "vel": 5,
+      "nombre": "ANTEBRAZO DERECHO"
+    }
+  ]
+}
