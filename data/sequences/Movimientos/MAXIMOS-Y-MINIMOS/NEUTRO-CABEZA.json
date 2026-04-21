@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "name": "Movimientos/MAXIMOS Y MINIMOS/NEUTRO CABEZA",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 0.03,
+      "dur": 2.0,
+      "pos": 490,
+      "vel": 5,
+      "nombre": "P0_S2"
+    }
+  ]
+}

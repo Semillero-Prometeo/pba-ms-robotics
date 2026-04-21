@@ -71,8 +71,12 @@ class SequenceService:
 
     def list_sequences(self) -> SequenceListResponse:
         sequences: list[SequenceFileInfo] = []
-        for file_path in sorted(self.data_dir.glob("*.json")):
-            sequences.append(SequenceFileInfo(name=file_path.stem, file_name=file_path.name))
+        for file_path in sorted(self.data_dir.rglob("*.json")):
+            relative_path = file_path.relative_to(self.data_dir)
+            sequence_name = relative_path.with_suffix("").as_posix()
+            sequences.append(
+                SequenceFileInfo(name=sequence_name, file_name=relative_path.as_posix())
+            )
         return SequenceListResponse(total=len(sequences), data=sequences)
 
     def get_sequence(self, name: str) -> MotionSequenceFile:
@@ -92,6 +96,7 @@ class SequenceService:
                 f"La secuencia '{sequence.name}' ya existe. Use overwrite=true para reemplazar."
             )
 
+        file_path.parent.mkdir(parents=True, exist_ok=True)
         file_path.write_text(sequence.model_dump_json(indent=2), encoding="utf-8")
         return SequenceStatusResponse(status="ok", message="Secuencia guardada")
 
@@ -222,11 +227,28 @@ class SequenceService:
         raise ValueError("Formato de secuencia inválido")
 
     def _resolve_sequence_path(self, name: str) -> Path:
-        safe_name = self._safe_name(name)
-        return self.data_dir / f"{safe_name}.json"
+        safe_relative_path = self._safe_relative_sequence_name(name)
+        return self.data_dir / safe_relative_path
 
-    def _safe_name(self, name: str) -> str:
-        return "".join(ch if ch.isalnum() or ch in {"_", "-"} else "-" for ch in name).strip("-")
+    def _safe_relative_sequence_name(self, name: str) -> Path:
+        normalized = name.replace("\\", "/").strip("/")
+        if not normalized:
+            raise ValueError("Nombre de secuencia inválido")
+
+        safe_parts: list[str] = []
+        for part in normalized.split("/"):
+            stripped = part.strip()
+            if not stripped or stripped in {".", ".."}:
+                raise ValueError("Nombre de secuencia inválido")
+            safe_part = "".join(
+                ch if ch.isalnum() or ch in {"_", "-"} else "-" for ch in stripped
+            ).strip("-")
+            if not safe_part:
+                raise ValueError("Nombre de secuencia inválido")
+            safe_parts.append(safe_part)
+
+        relative_path = Path(*safe_parts)
+        return relative_path.with_suffix(".json")
 
     def _ensure_connections(self, blocks: list[MotionBlock]) -> None:
         available_ids = set(self.arduino_utils.connections.keys())

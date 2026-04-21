@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "name": "Movimientos/MIRADA DISIMULADA/OJITOS IZQUIERDA",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 1.88,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 7,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 1.89,
+      "dur": 2.0,
+      "pos": 350,
+      "vel": 7,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 1.91,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 7,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 1.9,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 2.12,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 2.13,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 2.14,
+      "dur": 2.0,
+      "pos": 750,
+      "vel": 7,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 2.14,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 7,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 0,
+      "inicio": 0.99,
+      "dur": 2.0,
+      "pos": 480,
+      "vel": 5,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 1,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 350,
+      "vel": 5,
+      "nombre": "P0_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 0.51,
+      "dur": 2.0,
+      "pos": 780,
+      "vel": 5,
+      "nombre": "P0_S2"
+    }
+  ]
+}

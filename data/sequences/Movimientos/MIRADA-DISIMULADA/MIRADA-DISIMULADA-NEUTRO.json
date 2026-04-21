@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "name": "Movimientos/MIRADA DISIMULADA/MIRADA DISIMULADA NEUTRO",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 0,
+      "inicio": 1.04,
+      "dur": 2.0,
+      "pos": 250,
+      "vel": 5,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 1,
+      "inicio": 0.57,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P0_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 3,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 650,
+      "vel": 5,
+      "nombre": "P0_S2"
+    }
+  ]
+}

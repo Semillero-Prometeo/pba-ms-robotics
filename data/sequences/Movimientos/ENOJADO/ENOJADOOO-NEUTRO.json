@@ -1,0 +1,146 @@
+{
+  "version": 1,
+  "name": "Movimientos/ENOJADO/ENOJADOOO NEUTRO",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 2,
+      "inicio": 0.98,
+      "dur": 2.0,
+      "pos": 800,
+      "vel": 5,
+      "nombre": "INDICE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 1,
+      "inicio": 0.98,
+      "dur": 2.0,
+      "pos": 700,
+      "vel": 5,
+      "nombre": "PULGAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 5,
+      "inicio": 0.97,
+      "dur": 2.0,
+      "pos": 800,
+      "vel": 5,
+      "nombre": "ANULAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 4,
+      "inicio": 0.98,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 5,
+      "nombre": "MEÑIQUE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 3,
+      "inicio": 0.98,
+      "dur": 2.0,
+      "pos": 900,
+      "vel": 5,
+      "nombre": "CORAZON"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 780,
+      "vel": 5,
+      "nombre": "EXTENSION"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 11,
+      "inicio": 0.42,
+      "dur": 2.0,
+      "pos": 380,
+      "vel": 5,
+      "nombre": "ANTEBRAZO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 13,
+      "inicio": 0.95,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "BICEP"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 1.01,
+      "dur": 2.0,
+      "pos": 570,
+      "vel": 5,
+      "nombre": "CEJA IZQ"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 1.01,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "CEJA DERE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 0.39,
+      "dur": 2.0,
+      "pos": 580,
+      "vel": 5,
+      "nombre": "FRENTE IZQ"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 0.39,
+      "dur": 2.0,
+      "pos": 580,
+      "vel": 5,
+      "nombre": "FRENTE DERE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 0.39,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "PARPA SUP IZQ"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 0.38,
+      "dur": 2.0,
+      "pos": 480,
+      "vel": 5,
+      "nombre": "PARPA SUP DERE"
+    }
+  ]
+}

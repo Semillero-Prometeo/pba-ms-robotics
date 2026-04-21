@@ -1,0 +1,116 @@
+{
+  "version": 1,
+  "name": "Movimientos/CANSADO/CANSADOOO",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 0.01,
+      "dur": 2.0,
+      "pos": 650,
+      "vel": 5,
+      "nombre": "Ceja Derecha"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 380,
+      "vel": 5,
+      "nombre": "Ceja Izquierdaa"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 520,
+      "vel": 5,
+      "nombre": "Frente Izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 640,
+      "vel": 5,
+      "nombre": "Frente Dere"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 590,
+      "vel": 5,
+      "nombre": "Parpado superior Izquierdo"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 430,
+      "vel": 5,
+      "nombre": "Parpado superior derecho"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 850,
+      "vel": 5,
+      "nombre": "Parpado inferior izquierdo"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 5,
+      "nombre": "Parpado inferior derecho"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 3,
+      "inicio": 0.25,
+      "dur": 2.0,
+      "pos": 800,
+      "vel": 5,
+      "nombre": "INCLINAACIÓN"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 1,
+      "inicio": 0.01,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "CUELLO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 5,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 570,
+      "vel": 5,
+      "nombre": "CADERA"
+    }
+  ]
+}

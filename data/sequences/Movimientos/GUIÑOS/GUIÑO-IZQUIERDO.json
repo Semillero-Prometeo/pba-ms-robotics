@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "name": "Movimientos/GUIÑOS/GUIÑO IZQUIERDO",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 0.01,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 0.02,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 5,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 0.31,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 0.33,
+      "dur": 2.0,
+      "pos": 750,
+      "vel": 5,
+      "nombre": "P3_S1"
+    }
+  ]
+}

@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "name": "Movimientos/MOVIMIENTOS AGRUPADOS/BRAZO CON GUIÑO NEUTRO DERE",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 1.35,
+      "dur": 2.0,
+      "pos": 350,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 1.36,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 1.65,
+      "dur": 2.0,
+      "pos": 480,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 1.66,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 2,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 5,
+      "nombre": "P0_S0"
+    }
+  ]
+}

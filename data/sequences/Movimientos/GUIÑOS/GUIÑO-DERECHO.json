@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "name": "Movimientos/GUIÑOS/GUIÑO DERECHO",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 0.01,
+      "dur": 2.0,
+      "pos": 350,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 0.35,
+      "dur": 2.0,
+      "pos": 480,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 0.34,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P3_S2"
+    }
+  ]
+}

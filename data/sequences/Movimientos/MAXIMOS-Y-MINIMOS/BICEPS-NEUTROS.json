@@ -1,0 +1,26 @@
+{
+  "version": 1,
+  "name": "Movimientos/MAXIMOS Y MINIMOS/BICEPS NEUTROS",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 13,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P0_S"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 1,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 5,
+      "nombre": "P0_S1"
+    }
+  ]
+}

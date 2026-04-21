@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "name": "Movimientos/MOVIMIENTOS AGRUPADOS/PESTAÑEO CON MANDIBULA NEUTRO",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 2.33,
+      "dur": 2.0,
+      "pos": 350,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 2.33,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 2.69,
+      "dur": 2.0,
+      "pos": 480,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 2.67,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 0,
+      "inicio": 2.33,
+      "dur": 2.0,
+      "pos": 530,
+      "vel": 5,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 0,
+      "inicio": 2.67,
+      "dur": 2.0,
+      "pos": 210,
+      "vel": 5,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 0,
+      "inicio": 0.9,
+      "dur": 2.0,
+      "pos": 700,
+      "vel": 5,
+      "nombre": "P0_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 3,
+      "inicio": 0.1,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "P0_S3"
+    }
+  ]
+}

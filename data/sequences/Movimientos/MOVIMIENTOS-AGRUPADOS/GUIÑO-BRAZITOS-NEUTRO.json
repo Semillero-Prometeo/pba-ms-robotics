@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "name": "Movimientos/MOVIMIENTOS AGRUPADOS/GUIÑO BRAZITOS NEUTRO",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 2.09,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 2.1,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 5,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 2.42,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 2.42,
+      "dur": 2.0,
+      "pos": 750,
+      "vel": 5,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 15,
+      "inicio": 0.74,
+      "dur": 2.0,
+      "pos": 560,
+      "vel": 5,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 0,
+      "inicio": 0.74,
+      "dur": 2.0,
+      "pos": 680,
+      "vel": 5,
+      "nombre": "P0_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 3,
+      "inicio": 0.07,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "P0_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 11,
+      "inicio": 0.06,
+      "dur": 2.0,
+      "pos": 380,
+      "vel": 5,
+      "nombre": "P0_S3"
+    }
+  ]
+}

@@ -1,0 +1,16 @@
+{
+  "version": 1,
+  "name": "Movimientos/ROTACIONES/ROTACIPN DERECHA",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 4,
+      "inicio": 0.05,
+      "dur": 2.0,
+      "pos": 550,
+      "vel": 5,
+      "nombre": "P0_S4"
+    }
+  ]
+}
