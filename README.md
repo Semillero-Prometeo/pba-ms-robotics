@@ -16,6 +16,13 @@ PROMETEO Backend Architecture Robotics Microservice
   3. Opcional: `PULSE_SINK` con el nombre exacto del sink BT si la heurística no basta.
 - **Solo probar TTS sin reproducir:** `MS_ROBOTICS_VOICE_SKIP_PLAYBACK=1`.
 
+### TTS OpenAI + fallback local
+
+- Con **`VOICE_TTS_MODE=auto`** (por defecto) y **`OPENAI_API_KEY`** disponible en el contenedor, el audio se genera con la API **Speech** (`response_format=wav`) y voces tipo `alloy`, `nova`, etc.
+- Si la API falla (sin red, cuota, error 5xx) se usa **automáticamente** Piper/espeak como hasta ahora.
+- **`VOICE_TTS_MODE=local`:** nunca llama a OpenAI para TTS (solo offline).
+- Variables típicas en el launcher / Compose: `MS_ROBOTICS_VOICE_TTS_MODE`, `OPENAI_API_KEY` (p. ej. desde `MS_MANAGEMENT_OPENAI_API_KEY`), `MS_ROBOTICS_OPENAI_TTS_MODEL`, `MS_ROBOTICS_OPENAI_TTS_VOICE`, `MS_ROBOTICS_OPENAI_TTS_SPEED`.
+
 Los fallos de reproducción devuelven **503** al gateway cuando el error lleva `statusCode` estructurado.
 
 # Elimina el venv existente

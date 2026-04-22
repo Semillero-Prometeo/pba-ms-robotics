@@ -25,6 +25,8 @@ def play_wav_file(path: str, sink_name: str | None) -> None:
     In Docker without a sound device or PulseAudio, paplay/aplay usually fail: mount ``/dev/snd`` or
     use the host Pulse socket (see README).
     """
+    print(f"play_wav_file: {path}, {sink_name}")
+
     if _skip_playback():
         logger.warning(
             "VOICE_SKIP_PLAYBACK is set: skipping playback (WAV was written at %s). "

@@ -9,6 +9,7 @@ description = "Prometeo Backend Architecture Robotics Microservice"
 readme = "README.md"
 requires-python = ">=3.13"
 dependencies = [
+    "openai>=1.40.0",
     "nats-py>=2.12.0",
     "pydantic>=2.5.0",
     "pydantic-settings>=2.1.0",
