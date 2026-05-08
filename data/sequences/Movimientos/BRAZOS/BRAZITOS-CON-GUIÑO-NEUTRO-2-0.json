@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "name": "Movimientos/BRAZOS/BRAZITOS CON GUIÑO NEUTRO 2.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 2.86,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 2.88,
+      "dur": 2.0,
+      "pos": 670,
+      "vel": 5,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 3.08,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 3.08,
+      "dur": 2.0,
+      "pos": 750,
+      "vel": 5,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 15,
+      "inicio": 0.48,
+      "dur": 2.0,
+      "pos": 590,
+      "vel": 5,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 0,
+      "inicio": 0.46,
+      "dur": 2.0,
+      "pos": 630,
+      "vel": 5,
+      "nombre": "P0_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 3,
+      "inicio": 0.04,
+      "dur": 2.0,
+      "pos": 370,
+      "vel": 5,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 12,
+      "inicio": 0.04,
+      "dur": 2.0,
+      "pos": 370,
+      "vel": 5,
+      "nombre": "P0_S1"
+    }
+  ]
+}
