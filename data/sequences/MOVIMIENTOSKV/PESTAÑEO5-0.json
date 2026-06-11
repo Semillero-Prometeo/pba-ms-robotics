@@ -1,0 +1,86 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOSKV/PESTAÑEO5.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 0.96,
+      "dur": 2.0,
+      "pos": 700,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 0.98,
+      "dur": 2.0,
+      "pos": 340,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 0.97,
+      "dur": 2.0,
+      "pos": 520,
+      "vel": 5,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 0.98,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 10,
+      "inicio": 1.25,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 1.23,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 1,
+      "inicio": 1.26,
+      "dur": 2.0,
+      "pos": 700,
+      "vel": 5,
+      "nombre": "P3_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 1.24,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P3_S2"
+    }
+  ]
+}

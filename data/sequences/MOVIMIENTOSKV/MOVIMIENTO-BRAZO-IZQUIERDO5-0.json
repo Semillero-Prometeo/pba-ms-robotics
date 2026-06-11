@@ -1,0 +1,76 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOSKV/MOVIMIENTO BRAZO IZQUIERDO5.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 2.4,
+      "dur": 2.0,
+      "pos": 340,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 2.41,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 3,
+      "inicio": 2.72,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 2,
+      "inicio": 2.72,
+      "dur": 2.0,
+      "pos": 400,
+      "vel": 5,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 12,
+      "inicio": 1.33,
+      "dur": 2.0,
+      "pos": 250,
+      "vel": 1,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 13,
+      "inicio": 0.77,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 1,
+      "nombre": "P0_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 15,
+      "inicio": 0.02,
+      "dur": 2.0,
+      "pos": 450,
+      "vel": 1,
+      "nombre": "P0_S2"
+    }
+  ]
+}

@@ -1,0 +1,46 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOSKV/ABRAZONEUTRO5.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 0,
+      "inicio": 0.97,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 3,
+      "nombre": "P0_S0"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 3,
+      "inicio": 0.03,
+      "dur": 2.0,
+      "pos": 750,
+      "vel": 3,
+      "nombre": "P0_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 1,
+      "inicio": 0.69,
+      "dur": 2.0,
+      "pos": 750,
+      "vel": 3,
+      "nombre": "P0_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 2,
+      "inicio": 0.33,
+      "dur": 2.0,
+      "pos": 850,
+      "vel": 3,
+      "nombre": "P0_S3"
+    }
+  ]
+}
