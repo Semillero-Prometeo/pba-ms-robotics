@@ -1,6 +1,6 @@
 {
   "version": 1,
-  "name": "MOVIMIENTOSKV/ABRAZONEUTRO5.0",
+  "name": "MOVIMIENTOS FEDE 6.0/ABRAZONEUTRO6.0",
   "blocks": [
     {
       "arduino_id": 0,
@@ -8,7 +8,7 @@
       "servo": 0,
       "inicio": 0.97,
       "dur": 2.0,
-      "pos": 600,
+      "pos": 620,
       "vel": 3,
       "nombre": "P0_S0"
     },
@@ -16,9 +16,9 @@
       "arduino_id": 0,
       "pca": 2,
       "servo": 3,
-      "inicio": 0.03,
+      "inicio": 0.05,
       "dur": 2.0,
-      "pos": 750,
+      "pos": 800,
       "vel": 3,
       "nombre": "P0_S1"
     },
@@ -28,7 +28,7 @@
       "servo": 1,
       "inicio": 0.69,
       "dur": 2.0,
-      "pos": 750,
+      "pos": 720,
       "vel": 3,
       "nombre": "P0_S2"
     },
@@ -38,7 +38,7 @@
       "servo": 2,
       "inicio": 0.33,
       "dur": 2.0,
-      "pos": 850,
+      "pos": 650,
       "vel": 3,
       "nombre": "P0_S3"
     }

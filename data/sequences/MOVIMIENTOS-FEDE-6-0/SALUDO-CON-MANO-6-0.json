@@ -1,0 +1,136 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOS FEDE 6.0/SALUDO CON MANO 6.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 1,
+      "inicio": 4.27,
+      "dur": 2.0,
+      "pos": 800,
+      "vel": 8,
+      "nombre": "P1_S1"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 2,
+      "inicio": 4.27,
+      "dur": 2.0,
+      "pos": 200,
+      "vel": 8,
+      "nombre": "P1_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 3,
+      "inicio": 4.26,
+      "dur": 2.0,
+      "pos": 0,
+      "vel": 8,
+      "nombre": "P1_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 4,
+      "inicio": 4.28,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 8,
+      "nombre": "P1_S4"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 5,
+      "inicio": 4.27,
+      "dur": 2.0,
+      "pos": 0,
+      "vel": 8,
+      "nombre": "P1_S5"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 10,
+      "nombre": "EXTENSION"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 12,
+      "inicio": 0.37,
+      "dur": 2.0,
+      "pos": 650,
+      "vel": 10,
+      "nombre": "CODO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 13,
+      "inicio": 0.12,
+      "dur": 2.0,
+      "pos": 800,
+      "vel": 10,
+      "nombre": "ROTACION"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 5,
+      "inicio": 5.22,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 5,
+      "nombre": "P1_S5"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 4,
+      "inicio": 5.22,
+      "dur": 2.0,
+      "pos": 900,
+      "vel": 5,
+      "nombre": "P1_S4"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 3,
+      "inicio": 5.22,
+      "dur": 2.0,
+      "pos": 900,
+      "vel": 5,
+      "nombre": "P1_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 2,
+      "inicio": 5.22,
+      "dur": 2.0,
+      "pos": 900,
+      "vel": 5,
+      "nombre": "P1_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 1,
+      "inicio": 5.21,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 5,
+      "nombre": "P1_S1"
+    }
+  ]
+}

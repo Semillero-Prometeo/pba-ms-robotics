@@ -1,46 +1,46 @@
 {
   "version": 1,
-  "name": "MOVIMIENTOSKV/GUIÑO DERECHO5.0",
+  "name": "MOVIMIENTOS FEDE 6.0/GUIÑO IZQUIERDO 6.0",
   "blocks": [
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 3,
+      "servo": 13,
       "inicio": 0.01,
       "dur": 2.0,
-      "pos": 340,
+      "pos": 730,
       "vel": 5,
-      "nombre": "P3_S3"
+      "nombre": "P3_S10"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 2,
-      "inicio": 0.0,
+      "servo": 12,
+      "inicio": 0.02,
       "dur": 2.0,
-      "pos": 600,
+      "pos": 550,
       "vel": 5,
-      "nombre": "P3_S2"
+      "nombre": "P3_S1"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 3,
-      "inicio": 0.35,
+      "servo": 13,
+      "inicio": 0.31,
       "dur": 2.0,
-      "pos": 400,
+      "pos": 500,
       "vel": 5,
-      "nombre": "P3_S3"
+      "nombre": "P3_S10"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 2,
-      "inicio": 0.34,
+      "servo": 12,
+      "inicio": 0.33,
       "dur": 2.0,
-      "pos": 400,
+      "pos": 850,
       "vel": 5,
-      "nombre": "P3_S2"
+      "nombre": "P3_S1"
     }
   ]
 }

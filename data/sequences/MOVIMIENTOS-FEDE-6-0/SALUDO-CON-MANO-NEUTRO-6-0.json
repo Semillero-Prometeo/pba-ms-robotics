@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOS FEDE 6.0/SALUDO CON MANO NEUTRO 6.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 10,
+      "nombre": "EXTENSION"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 12,
+      "inicio": 0.37,
+      "dur": 2.0,
+      "pos": 850,
+      "vel": 10,
+      "nombre": "CODO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 13,
+      "inicio": 0.12,
+      "dur": 2.0,
+      "pos": 450,
+      "vel": 10,
+      "nombre": "ROTACION"
+    }
+  ]
+}

@@ -1,84 +1,84 @@
 {
   "version": 1,
-  "name": "MOVIMIENTOSKV/OJITOS DISIMULADO5.0",
+  "name": "MOVIMIENTOS FEDE 6.0/OJITOS DISIMULADOS NEUTRO 6.0",
   "blocks": [
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 10,
+      "servo": 14,
       "inicio": 1.88,
       "dur": 2.0,
-      "pos": 700,
+      "pos": 620,
       "vel": 7,
       "nombre": "P3_S10"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 3,
+      "servo": 12,
       "inicio": 1.89,
       "dur": 2.0,
-      "pos": 340,
+      "pos": 550,
       "vel": 7,
       "nombre": "P3_S3"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 1,
+      "servo": 15,
       "inicio": 1.91,
       "dur": 2.0,
-      "pos": 520,
+      "pos": 360,
       "vel": 7,
-      "nombre": "P3_S1"
+      "nombre": "P3_S15"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 2,
+      "servo": 13,
       "inicio": 1.9,
       "dur": 2.0,
-      "pos": 600,
+      "pos": 730,
       "vel": 7,
       "nombre": "P3_S2"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 10,
+      "servo": 14,
       "inicio": 2.12,
       "dur": 2.0,
-      "pos": 600,
+      "pos": 300,
       "vel": 7,
       "nombre": "P3_S10"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 3,
+      "servo": 12,
       "inicio": 2.13,
       "dur": 2.0,
-      "pos": 400,
+      "pos": 850,
       "vel": 7,
       "nombre": "P3_S3"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 1,
+      "servo": 15,
       "inicio": 2.14,
       "dur": 2.0,
-      "pos": 700,
+      "pos": 650,
       "vel": 7,
-      "nombre": "P3_S1"
+      "nombre": "P3_S15"
     },
     {
       "arduino_id": 0,
       "pca": 3,
-      "servo": 2,
+      "servo": 13,
       "inicio": 2.14,
       "dur": 2.0,
-      "pos": 400,
+      "pos": 500,
       "vel": 7,
       "nombre": "P3_S2"
     },
@@ -88,7 +88,7 @@
       "servo": 0,
       "inicio": 0.99,
       "dur": 2.0,
-      "pos": 480,
+      "pos": 380,
       "vel": 1,
       "nombre": "P0_S0"
     },
@@ -98,7 +98,7 @@
       "servo": 1,
       "inicio": 0.0,
       "dur": 2.0,
-      "pos": 750,
+      "pos": 625,
       "vel": 1,
       "nombre": "P0_S1"
     },
@@ -108,7 +108,7 @@
       "servo": 2,
       "inicio": 0.49,
       "dur": 2.0,
-      "pos": 800,
+      "pos": 550,
       "vel": 1,
       "nombre": "P0_S2"
     }

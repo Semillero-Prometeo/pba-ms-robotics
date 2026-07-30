@@ -1,0 +1,56 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOS FEDE 6.0/FEDE EXPLICATIVO 6.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 4,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 150,
+      "vel": 5,
+      "nombre": "P0_S4"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 2,
+      "inicio": 0.01,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 5,
+      "nombre": "P0_S4"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 2,
+      "servo": 3,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P0_S5"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 12,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "P0_S6"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 13,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 200,
+      "vel": 5,
+      "nombre": "P0_S7"
+    }
+  ]
+}

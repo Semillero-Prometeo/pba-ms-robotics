@@ -1,14 +1,14 @@
 {
   "version": 1,
-  "name": "MOVIMIENTOSKV/ABRAZOTE NEUTRO5.0",
+  "name": "MOVIMIENTOS FEDE 6.0/ABRAZOTE6.0",
   "blocks": [
     {
       "arduino_id": 0,
       "pca": 2,
       "servo": 0,
-      "inicio": 2.36,
+      "inicio": 0.0,
       "dur": 2.0,
-      "pos": 600,
+      "pos": 500,
       "vel": 3,
       "nombre": "P0_S0"
     },
@@ -16,9 +16,9 @@
       "arduino_id": 0,
       "pca": 2,
       "servo": 3,
-      "inicio": 0.01,
+      "inicio": 5.42,
       "dur": 2.0,
-      "pos": 750,
+      "pos": 400,
       "vel": 3,
       "nombre": "P0_S1"
     },
@@ -26,9 +26,9 @@
       "arduino_id": 0,
       "pca": 2,
       "servo": 1,
-      "inicio": 2.12,
+      "inicio": 1.81,
       "dur": 2.0,
-      "pos": 750,
+      "pos": 350,
       "vel": 3,
       "nombre": "P0_S2"
     },
@@ -36,9 +36,9 @@
       "arduino_id": 0,
       "pca": 2,
       "servo": 2,
-      "inicio": 1.81,
+      "inicio": 3.62,
       "dur": 2.0,
-      "pos": 850,
+      "pos": 1000,
       "vel": 3,
       "nombre": "P0_S3"
     },
@@ -46,7 +46,7 @@
       "arduino_id": 0,
       "pca": 1,
       "servo": 15,
-      "inicio": 2.36,
+      "inicio": 0.0,
       "dur": 2.0,
       "pos": 500,
       "vel": 3,
@@ -56,9 +56,9 @@
       "arduino_id": 0,
       "pca": 1,
       "servo": 14,
-      "inicio": 2.15,
+      "inicio": 1.79,
       "dur": 2.0,
-      "pos": 850,
+      "pos": 650,
       "vel": 3,
       "nombre": "P0_S1"
     },
@@ -66,9 +66,9 @@
       "arduino_id": 0,
       "pca": 1,
       "servo": 13,
-      "inicio": 1.91,
+      "inicio": 3.6,
       "dur": 2.0,
-      "pos": 666,
+      "pos": 660,
       "vel": 3,
       "nombre": "P0_S2"
     },
@@ -76,9 +76,9 @@
       "arduino_id": 0,
       "pca": 1,
       "servo": 12,
-      "inicio": 0.03,
+      "inicio": 5.47,
       "dur": 2.0,
-      "pos": 550,
+      "pos": 500,
       "vel": 3,
       "nombre": "P0_S3"
     }

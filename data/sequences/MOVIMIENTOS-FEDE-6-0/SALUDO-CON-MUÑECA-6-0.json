@@ -1,0 +1,36 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOS FEDE 6.0/SALUDO CON MUÑECA 6.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 4,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 520,
+      "vel": 7,
+      "nombre": "ROTACION"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 14,
+      "inicio": 0.49,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 7,
+      "nombre": "EXTESION"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 12,
+      "inicio": 0.81,
+      "dur": 2.0,
+      "pos": 850,
+      "vel": 6,
+      "nombre": "CODO"
+    }
+  ]
+}

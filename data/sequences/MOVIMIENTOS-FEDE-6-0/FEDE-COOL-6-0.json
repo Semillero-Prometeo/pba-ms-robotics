@@ -1,0 +1,156 @@
+{
+  "version": 1,
+  "name": "MOVIMIENTOS FEDE 6.0/FEDE COOL 6.0",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 1.88,
+      "dur": 2.0,
+      "pos": 620,
+      "vel": 7,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 1.89,
+      "dur": 2.0,
+      "pos": 550,
+      "vel": 7,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 1.91,
+      "dur": 2.0,
+      "pos": 360,
+      "vel": 7,
+      "nombre": "P3_S15"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 1.9,
+      "dur": 2.0,
+      "pos": 730,
+      "vel": 7,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 2.12,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 7,
+      "nombre": "P3_S10"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 2.13,
+      "dur": 2.0,
+      "pos": 850,
+      "vel": 7,
+      "nombre": "P3_S3"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 2.14,
+      "dur": 2.0,
+      "pos": 650,
+      "vel": 7,
+      "nombre": "P3_S15"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 2.14,
+      "dur": 2.0,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "P3_S2"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "EXTENSION"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 12,
+      "inicio": 0.44,
+      "dur": 2.0,
+      "pos": 430,
+      "vel": 5,
+      "nombre": "CODO"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 4,
+      "inicio": 2.02,
+      "dur": 2.0,
+      "pos": 0,
+      "vel": 5,
+      "nombre": "MEÑIQUE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 1,
+      "inicio": 2.02,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 5,
+      "nombre": "PULGAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 5,
+      "inicio": 2.02,
+      "dur": 2.0,
+      "pos": 300,
+      "vel": 5,
+      "nombre": "ANULAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 0,
+      "inicio": 1.67,
+      "dur": 2.0,
+      "pos": 700,
+      "vel": 5,
+      "nombre": "MUÑECA"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 13,
+      "inicio": 0.0,
+      "dur": 2.0,
+      "pos": 900,
+      "vel": 5,
+      "nombre": "ROTACION"
+    }
+  ]
+}
