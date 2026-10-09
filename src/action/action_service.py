@@ -1,6 +1,9 @@
 import logging
+from pathlib import Path
 
+from src.action.descriptions import apply_descriptions, load_descriptions
 from src.action.interfaces.command_interface import Command
+from src.core.settings.env import ACTION_DESCRIPTIONS_PATH
 from src.action.utils.arduino_utils import get_arduino_utils
 from src.core.interfaces.paginated_response import ExecuteActionResponse, StatusResponse
 
@@ -37,7 +40,8 @@ class ActionService:
             commands.extend(self.arduino_utils.get_actions_from_arduino(connection))
             logger.info(f"Commands: {commands}")
 
-        return commands
+        descriptions = load_descriptions(Path(ACTION_DESCRIPTIONS_PATH))
+        return apply_descriptions(commands, descriptions)
 
     def execute_action(self, action_id: int, arduino_id: int) -> ExecuteActionResponse:
         # return ExecuteActionResponse(status="ok", response=["Linea 1", "Linea 2"])

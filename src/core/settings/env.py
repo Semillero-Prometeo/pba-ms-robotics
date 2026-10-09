@@ -10,6 +10,10 @@ if not NATS_SERVER:
 
 ROBOTICS_MS: str = "ROBOTICS_MS"
 SEQUENCES_DATA_DIR: str = os.getenv("SEQUENCES_DATA_DIR", "/usr/src/app/data/sequences")
+ACTION_DESCRIPTIONS_PATH: str = os.getenv(
+    "ACTION_DESCRIPTIONS_PATH",
+    "/usr/src/app/data/action-descriptions.json",
+)
 
 # Management MS (OpenAI chat via NATS)
 MANAGEMENT_MS: str = "MANAGEMENT_MS"
