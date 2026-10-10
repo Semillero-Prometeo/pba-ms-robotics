@@ -3,9 +3,9 @@ from pathlib import Path
 
 from src.action.descriptions import apply_descriptions, load_descriptions
 from src.action.interfaces.command_interface import Command
-from src.core.settings.env import ACTION_DESCRIPTIONS_PATH
 from src.action.utils.arduino_utils import get_arduino_utils
 from src.core.interfaces.paginated_response import ExecuteActionResponse, StatusResponse
+from src.core.settings.env import ACTION_DESCRIPTIONS_PATH
 
 logger = logging.getLogger(__name__)
 
@@ -41,7 +41,10 @@ class ActionService:
             logger.info(f"Commands: {commands}")
 
         descriptions = load_descriptions(Path(ACTION_DESCRIPTIONS_PATH))
-        return apply_descriptions(commands, descriptions)
+        described = apply_descriptions(commands, descriptions)
+        if not described:
+            logger.info("Catálogo de movimientos vacío: no hay puertos /dev/ttyACM ni /dev/ttyUSB.")
+        return described
 
     def execute_action(self, action_id: int, arduino_id: int) -> ExecuteActionResponse:
         # return ExecuteActionResponse(status="ok", response=["Linea 1", "Linea 2"])
