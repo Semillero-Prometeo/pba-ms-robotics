@@ -98,6 +98,10 @@ def create_subscribers(nats_client: NATSClient) -> list[NatsSubscriber]:
             subject=f"{ROBOTICS_MS}.sequenceService.chainStatus",
         ),
         NatsSubscriber(
+            controller=sequence_controller.get_runtime,
+            subject=f"{ROBOTICS_MS}.sequenceService.getRuntime",
+        ),
+        NatsSubscriber(
             controller=lambda data: voice_service.speak_only(
                 SpeakPayload.model_validate(data).message
             ),

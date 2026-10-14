@@ -3,6 +3,7 @@ import logging
 from src.action.interfaces.command_interface import Command
 from src.action.utils.arduino_utils import get_arduino_utils
 from src.core.interfaces.paginated_response import ExecuteActionResponse
+from src.sequence.ingest import is_complete_pair
 from src.sequence.sequence_service import SequenceService
 
 logger = logging.getLogger(__name__)
@@ -22,7 +23,10 @@ class ActionService:
     def execute_action(self, action_id: int, arduino_id: int) -> ExecuteActionResponse:
         sequence = self.sequence_service.find_by_id(action_id)
         if sequence is not None:
-            status = self.sequence_service.start_playback(sequence.blocks)
+            if not is_complete_pair(sequence):
+                logger.warning("Secuencia %s incompleta; se omite", action_id)
+                return ExecuteActionResponse(status="ok", response=["omitido"])
+            status = self.sequence_service.enqueue_turn_pair(sequence)
             return ExecuteActionResponse(
                 status=status.status,
                 response=[status.message] if status.message else ["secuencia"],

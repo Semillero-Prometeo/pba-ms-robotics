@@ -14,13 +14,16 @@ from src.sequence.interfaces.sequence_interface import (
     MotionBlock,
     MotionSequenceFile,
     PcaScanResponse,
+    RuntimeSnapshot,
     SequenceArduino,
     SequenceChainItem,
     SequenceChainStatusResponse,
     SequenceFileInfo,
     SequenceListResponse,
+    SequencePlaybackPayload,
     SequenceStatusResponse,
 )
+from src.sequence.playback_queue import PlaybackQueue, QueueStep
 
 logger = logging.getLogger(__name__)
 
@@ -39,6 +42,7 @@ class SequenceService:
         self._chain_current_sequence: str | None = None
         self._chain_completed_items = 0
         self._chain_total_items = 0
+        self.playback_queue = PlaybackQueue(lambda blocks, stop: self._fire_blocks(blocks, stop))
 
     def list_arduinos(self) -> list[SequenceArduino]:
         self.arduino_utils.sync_connections()
@@ -192,18 +196,70 @@ class SequenceService:
 
         return SequenceStatusResponse(status="ok", message="Secuencia iniciada")
 
+    def enqueue_turn_pair(self, sequence: MotionSequenceFile) -> SequenceStatusResponse:
+        source = "turno"
+        steps = [
+            QueueStep(
+                id=sequence.id,
+                name=sequence.name,
+                mode="normal",
+                source=source,
+                blocks=list(sequence.blocks),
+            ),
+            QueueStep(id=sequence.id, name=sequence.name, mode="espera", source=source),
+            QueueStep(
+                id=sequence.id,
+                name=sequence.name,
+                mode="neutro",
+                source=source,
+                blocks=list(sequence.blocks_neutro),
+            ),
+            QueueStep(id=sequence.id, name=sequence.name, mode="espera", source=source),
+        ]
+        self.playback_queue.enqueue(steps, reject_if_busy=False)
+        return SequenceStatusResponse(status="ok", message="Encolado")
+
+    def start_user_playback(self, payload: SequencePlaybackPayload) -> SequenceStatusResponse:
+        if payload.blocks is not None:
+            name = payload.name or ""
+            step = QueueStep(
+                id=None,
+                name=name,
+                mode=payload.mode,
+                source=payload.source,
+                blocks=list(payload.blocks),
+            )
+        else:
+            sequence = self.get_sequence(payload.name or "")
+            blocks = sequence.blocks_neutro if payload.mode == "neutro" else sequence.blocks
+            step = QueueStep(
+                id=sequence.id,
+                name=sequence.name,
+                mode=payload.mode,
+                source=payload.source,
+                blocks=list(blocks),
+            )
+        self.playback_queue.enqueue([step], reject_if_busy=True)
+        return SequenceStatusResponse(status="ok", message="Secuencia iniciada")
+
+    def get_runtime(self) -> RuntimeSnapshot:
+        return self.playback_queue.snapshot()
+
     def stop_playback(self) -> SequenceStatusResponse:
+        queue_busy = self.playback_queue.snapshot().busy
+        self.playback_queue.stop()
         with self._playback_state_lock:
             stop_event = self._playback_stop_event
             thread = self._playback_thread
             self._playback_stop_event = None
             self._playback_thread = None
 
-        if stop_event is None or thread is None:
+        if not queue_busy and (stop_event is None or thread is None):
             return SequenceStatusResponse(status="ok", message="No había secuencia en ejecución")
 
-        stop_event.set()
-        thread.join(timeout=2.0)
+        if stop_event is not None and thread is not None:
+            stop_event.set()
+            thread.join(timeout=2.0)
         return SequenceStatusResponse(status="ok", message="Secuencia detenida")
 
     def start_chain(self, items: list[SequenceChainItem]) -> SequenceStatusResponse:
@@ -355,20 +411,24 @@ class SequenceService:
         if missing:
             raise ValueError(f"Arduinos no conectados para la secuencia: {missing}")
 
-    def _run_playback(self, blocks: list[MotionBlock], stop_event: threading.Event) -> None:
+    def _fire_blocks(self, blocks: list[MotionBlock], stop_event: threading.Event) -> None:
+        self.arduino_utils.sync_connections()
+        self._ensure_connections(blocks)
         start_time = time.monotonic()
         pending = sorted(blocks, key=lambda item: item.inicio)
         fired_indexes: set[int] = set()
+        while not stop_event.is_set() and len(fired_indexes) < len(pending):
+            elapsed = time.monotonic() - start_time
+            for index, block in enumerate(pending):
+                if index in fired_indexes or elapsed < block.inicio:
+                    continue
+                self._send_block_command(block)
+                fired_indexes.add(index)
+            time.sleep(0.01)
 
+    def _run_playback(self, blocks: list[MotionBlock], stop_event: threading.Event) -> None:
         try:
-            while not stop_event.is_set() and len(fired_indexes) < len(pending):
-                elapsed = time.monotonic() - start_time
-                for index, block in enumerate(pending):
-                    if index in fired_indexes or elapsed < block.inicio:
-                        continue
-                    self._send_block_command(block)
-                    fired_indexes.add(index)
-                time.sleep(0.01)
+            self._fire_blocks(blocks, stop_event)
         finally:
             with self._playback_state_lock:
                 if self._playback_thread is threading.current_thread():

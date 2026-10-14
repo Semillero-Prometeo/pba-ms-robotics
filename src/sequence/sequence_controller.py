@@ -47,7 +47,10 @@ class SequenceController:
 
     async def start_playback(self, data: SequencePlaybackPayload) -> SequenceStatusResponse:
         payload = SequencePlaybackPayload.model_validate(data)
-        return self.sequence_service.start_playback(payload.blocks)
+        return self.sequence_service.start_user_playback(payload)
+
+    async def get_runtime(self, _: dict[str, Any]) -> dict[str, Any]:
+        return self.sequence_service.get_runtime().model_dump()
 
     async def stop_playback(self, data: StopSequencePayload) -> SequenceStatusResponse:
         _ = StopSequencePayload.model_validate(data)

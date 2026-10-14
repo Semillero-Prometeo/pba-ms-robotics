@@ -1,5 +1,5 @@
 import re
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, ConfigDict, Field, model_validator
 
@@ -77,7 +77,30 @@ class SequenceByNamePayload(BaseModel):
 class SequencePlaybackPayload(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
-    blocks: list[MotionBlock]
+    mode: Literal["normal", "neutro"] = "normal"
+    source: Literal["panel", "estudio"] = "panel"
+    name: str | None = None
+    blocks: list[MotionBlock] | None = None
+
+    @model_validator(mode="after")
+    def name_or_blocks(self) -> "SequencePlaybackPayload":
+        if not self.name and not self.blocks:
+            raise ValueError("Indique name o blocks")
+        return self
+
+
+class QueueStepPublic(BaseModel):
+    id: int | None = None
+    name: str
+    mode: Literal["normal", "neutro", "espera"]
+    source: Literal["turno", "panel", "estudio"]
+
+
+class RuntimeSnapshot(BaseModel):
+    busy: bool
+    source: Literal["turno", "panel", "estudio"] | None = None
+    current: QueueStepPublic | None = None
+    queue: list[QueueStepPublic]
 
 
 class SequenceFileInfo(BaseModel):

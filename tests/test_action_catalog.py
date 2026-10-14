@@ -41,17 +41,15 @@ def test_empty_store_get_actions_empty(tmp_path: Path):
     assert service.get_actions() == []
 
 
-def test_execute_action_plays_sequence(tmp_path: Path):
+def test_execute_action_enqueues_complete_pair(tmp_path: Path):
     sequences = SequenceService(data_dir=tmp_path)
     sequences.save_sequence({"sequence": ORIGIN, "overwrite": False})
-    sequences.start_playback = MagicMock(
-        return_value=SequenceStatusResponse(status="ok", message="Secuencia en ejecución")
+    sequences.enqueue_turn_pair = MagicMock(
+        return_value=SequenceStatusResponse(status="ok", message="Encolado")
     )
     service = ActionService(sequence_service=sequences)
     result = service.execute_action(action_id=1, arduino_id=9)
-    sequences.start_playback.assert_called_once()
-    blocks = sequences.start_playback.call_args.args[0]
-    assert blocks[0].arduino_id == 2
+    sequences.enqueue_turn_pair.assert_called_once()
     assert result.status == "ok"
 
 
