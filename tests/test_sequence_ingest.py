@@ -14,30 +14,59 @@ from src.sequence.sequence_service import SequenceService
 ORIGIN = {
     "name": "saludo",
     "description": "Saludo con el brazo derecho",
+    "category": "brazo_derecho",
     "arduino_id": 2,
-    "blocks": [[0, 0, 0.0, 2, 0, 1, "P0_S0"]],
+    "blocks": [[0, 0, 0.0, 2, 850, 5, "P0_S0"]],
+    "blocks_neutro": [[0, 0, 0.0, 2, 500, 5, "P0_S0"]],
 }
 
 
-def test_origin_becomes_canonical_with_id():
+def test_origin_pair_becomes_canonical():
     result = ingest_save({"sequence": ORIGIN, "overwrite": False}, existing=None, next_id=1)
     assert result.id == 1
     assert result.version == 1
     assert result.name == "saludo"
     assert result.description == "Saludo con el brazo derecho"
+    assert result.category == "brazo_derecho"
     assert result.blocks[0].arduino_id == 2
     assert result.blocks[0].pca == 0
+    assert result.blocks[0].pos == 850
     assert result.blocks[0].nombre == "P0_S0"
+    assert result.blocks_neutro[0].pos == 500
+    assert result.blocks_neutro[0].arduino_id == 2
 
 
 def test_raw_seven_tuple_list_description_empty():
     result = ingest_save(
-        {"sequence": {"name": "viejo", "blocks": [[0, 0, 0.0, 2, 0, 1, "P0_S0"]]}, "overwrite": False},
+        {
+            "sequence": {
+                "name": "viejo",
+                "category": "cara",
+                "blocks": [[0, 0, 0.0, 2, 0, 1, "P0_S0"]],
+                "blocks_neutro": [[0, 0, 0.0, 2, 0, 1, "P0_S0"]],
+            },
+            "overwrite": False,
+        },
         existing=None,
         next_id=3,
     )
     assert result.id == 3
     assert result.description == ""
+    assert result.category == "cara"
+
+
+def test_ingest_rejects_missing_category():
+    raw = dict(ORIGIN)
+    raw.pop("category")
+    with pytest.raises(ValueError, match="Categoría inválida"):
+        ingest_save({"sequence": raw, "overwrite": False}, None, 1)
+
+
+def test_ingest_rejects_empty_neutro():
+    raw = dict(ORIGIN)
+    raw["blocks_neutro"] = []
+    with pytest.raises(ValueError, match="Falta la pista neutra"):
+        ingest_save({"sequence": raw, "overwrite": False}, None, 1)
 
 
 def test_overwrite_keeps_id_updates_description():
@@ -51,6 +80,7 @@ def test_overwrite_keeps_id_updates_description():
     )
     assert result.id == 4
     assert result.description == "Otra frase"
+    assert result.category == "brazo_derecho"
 
 
 def test_invalid_payload_rejected():
@@ -78,9 +108,12 @@ def test_save_and_list_roundtrip(tmp_path: Path):
     assert listed.data[0].name == "saludo"
     assert listed.data[0].id == 1
     assert listed.data[0].description == "Saludo con el brazo derecho"
+    assert listed.data[0].category == "brazo_derecho"
     loaded = service.get_sequence("saludo")
     assert loaded.id == 1
+    assert loaded.category == "brazo_derecho"
     assert loaded.blocks[0].arduino_id == 2
+    assert loaded.blocks_neutro[0].pos == 500
 
 
 def test_canonical_without_id_lists_but_file_untouched(tmp_path: Path):
@@ -97,6 +130,24 @@ def test_canonical_without_id_lists_but_file_untouched(tmp_path: Path):
     assert listed.data[0].id is None
     assert listed.data[0].description == ""
     assert '"id"' not in path.read_text(encoding="utf-8")
+
+
+def test_legacy_file_lists_but_not_in_catalog(tmp_path: Path):
+    path = tmp_path / "legado.json"
+    path.write_text(
+        '{"version": 1, "id": 7, "name": "legado", "blocks": ['
+        '{"arduino_id": 0, "pca": 0, "servo": 0, "inicio": 0, "dur": 2, "pos": 0, "vel": 1, "nombre": "P0_S0"}'
+        "]}",
+        encoding="utf-8",
+    )
+    service = SequenceService(data_dir=tmp_path)
+    listed = service.list_sequences()
+    assert listed.data[0].id == 7
+    assert listed.data[0].category is None
+    assert '"category"' not in path.read_text(encoding="utf-8")
+    from src.action.action_service import ActionService
+
+    assert ActionService(sequence_service=service).get_actions() == []
 
 
 def test_duplicate_without_overwrite_raises(tmp_path: Path):

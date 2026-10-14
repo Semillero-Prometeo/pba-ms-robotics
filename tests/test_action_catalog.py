@@ -13,8 +13,10 @@ from src.sequence.sequence_service import SequenceService
 ORIGIN = {
     "name": "saludo",
     "description": "Saludo con el brazo derecho",
+    "category": "brazo_derecho",
     "arduino_id": 2,
-    "blocks": [[0, 0, 0.0, 2, 0, 1, "P0_S0"]],
+    "blocks": [[0, 0, 0.0, 2, 850, 5, "P0_S0"]],
+    "blocks_neutro": [[0, 0, 0.0, 2, 500, 5, "P0_S0"]],
 }
 
 

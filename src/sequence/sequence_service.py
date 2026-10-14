@@ -9,7 +9,7 @@ from src.action.interfaces.arduino_connection import ArduinoConnection
 from src.action.interfaces.command_interface import Command
 from src.action.utils.arduino_utils import get_arduino_utils
 from src.core.settings.env import SEQUENCES_DATA_DIR
-from src.sequence.ingest import ingest_save, next_sequence_id
+from src.sequence.ingest import CATEGORIES, blocks_from_raw, ingest_save, is_complete_pair, next_sequence_id
 from src.sequence.interfaces.sequence_interface import (
     MotionBlock,
     MotionSequenceFile,
@@ -85,6 +85,7 @@ class SequenceService:
                     file_name=relative_path.as_posix(),
                     id=parsed.id,
                     description=parsed.description,
+                    category=parsed.category,
                 )
             )
         return SequenceListResponse(total=len(sequences), data=sequences)
@@ -142,7 +143,7 @@ class SequenceService:
         commands: list[Command] = []
         for info in self.list_sequences().data:
             sequence = self.get_sequence(info.name)
-            if sequence.id is None or not sequence.blocks:
+            if sequence.id is None or not is_complete_pair(sequence):
                 continue
             commands.append(
                 Command(
@@ -280,27 +281,48 @@ class SequenceService:
 
     def _parse_sequence_payload(self, name: str, payload: object) -> MotionSequenceFile:
         if isinstance(payload, list):
-            parsed = ingest_save(
-                {"sequence": {"name": name, "blocks": payload}, "overwrite": True},
-                existing=None,
-                next_id=1,
-            )
-            return parsed.model_copy(update={"id": None})
+            return MotionSequenceFile(name=name, blocks=blocks_from_raw(payload, 0), id=None)
         if isinstance(payload, dict):
             blocks = payload.get("blocks")
             if isinstance(blocks, list) and blocks and isinstance(blocks[0], list):
-                enriched = dict(payload)
-                enriched.setdefault("name", name)
-                parsed = ingest_save(
-                    {"sequence": enriched, "overwrite": True},
-                    existing=None,
-                    next_id=1,
-                )
-                return parsed.model_copy(update={"id": None})
+                return self._parse_origin_dict(name, payload)
             enriched = dict(payload)
             enriched.setdefault("name", name)
             return MotionSequenceFile.model_validate(enriched)
         raise ValueError("Formato de secuencia inválido")
+
+    def _parse_origin_dict(self, name: str, payload: dict[str, Any]) -> MotionSequenceFile:
+        enriched = dict(payload)
+        enriched.setdefault("name", name)
+        file_arduino = enriched.get("arduino_id", 0)
+        if file_arduino is None:
+            file_arduino = 0
+        category = enriched.get("category")
+        if category not in CATEGORIES:
+            category = None
+        blocks = blocks_from_raw(enriched.get("blocks"), int(file_arduino))
+        blocks_neutro: list[MotionBlock] = []
+        neutro_raw = enriched.get("blocks_neutro")
+        if isinstance(neutro_raw, list) and neutro_raw:
+            try:
+                blocks_neutro = blocks_from_raw(neutro_raw, int(file_arduino))
+            except ValueError:
+                blocks_neutro = []
+        assigned_id = enriched.get("id")
+        if assigned_id is not None:
+            assigned_id = int(assigned_id)
+        description = enriched.get("description", "")
+        if not isinstance(description, str):
+            description = ""
+        return MotionSequenceFile(
+            version=int(enriched.get("version") or 1),
+            id=assigned_id,
+            name=str(enriched.get("name") or name).strip() or name,
+            description=description.replace("\n", " ")[:280],
+            category=category,
+            blocks=blocks,
+            blocks_neutro=blocks_neutro,
+        )
 
     def _resolve_sequence_path(self, name: str) -> Path:
         safe_relative_path = self._safe_relative_sequence_name(name)

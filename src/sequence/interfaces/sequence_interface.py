@@ -49,7 +49,9 @@ class MotionSequenceFile(BaseModel):
     id: int | None = Field(default=None, ge=1)
     name: str = Field(min_length=1, max_length=80)
     description: str = Field(default="", max_length=280)
+    category: str | None = Field(default=None)
     blocks: list[MotionBlock]
+    blocks_neutro: list[MotionBlock] = Field(default_factory=list)
 
     @model_validator(mode="after")
     def validate_name(self) -> "MotionSequenceFile":
@@ -83,6 +85,7 @@ class SequenceFileInfo(BaseModel):
     file_name: str
     id: int | None = None
     description: str = ""
+    category: str | None = None
 
 
 class SequenceListResponse(BaseModel):
