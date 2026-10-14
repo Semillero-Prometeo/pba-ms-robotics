@@ -46,7 +46,9 @@ class MotionSequenceFile(BaseModel):
     model_config = ConfigDict(extra="forbid", strict=True)
 
     version: int = Field(default=1, ge=1)
+    id: int | None = Field(default=None, ge=1)
     name: str = Field(min_length=1, max_length=80)
+    description: str = Field(default="", max_length=280)
     blocks: list[MotionBlock]
 
     @model_validator(mode="after")
@@ -58,9 +60,9 @@ class MotionSequenceFile(BaseModel):
 
 
 class SaveSequencePayload(BaseModel):
-    model_config = ConfigDict(extra="forbid", strict=True)
+    model_config = ConfigDict(extra="forbid")
 
-    sequence: MotionSequenceFile
+    sequence: dict[str, Any]
     overwrite: bool = False
 
 
@@ -79,6 +81,8 @@ class SequencePlaybackPayload(BaseModel):
 class SequenceFileInfo(BaseModel):
     name: str
     file_name: str
+    id: int | None = None
+    description: str = ""
 
 
 class SequenceListResponse(BaseModel):

@@ -37,9 +37,9 @@ class SequenceController:
         payload = SequenceByNamePayload.model_validate(data)
         return self.sequence_service.get_sequence(payload.name).model_dump()
 
-    async def save_sequence(self, data: SaveSequencePayload) -> SequenceStatusResponse:
+    async def save_sequence(self, data: dict[str, Any]) -> SequenceStatusResponse:
         payload = SaveSequencePayload.model_validate(data)
-        return self.sequence_service.save_sequence(payload.sequence, payload.overwrite)
+        return self.sequence_service.save_sequence(payload.model_dump())
 
     async def delete_sequence(self, data: SequenceByNamePayload) -> SequenceStatusResponse:
         payload = SequenceByNamePayload.model_validate(data)

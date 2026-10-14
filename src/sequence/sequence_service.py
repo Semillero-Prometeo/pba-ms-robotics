@@ -3,10 +3,12 @@ import logging
 import threading
 import time
 from pathlib import Path
+from typing import Any
 
 from src.action.interfaces.arduino_connection import ArduinoConnection
 from src.action.utils.arduino_utils import get_arduino_utils
 from src.core.settings.env import SEQUENCES_DATA_DIR
+from src.sequence.ingest import ingest_save, next_sequence_id
 from src.sequence.interfaces.sequence_interface import (
     MotionBlock,
     MotionSequenceFile,
@@ -23,9 +25,9 @@ logger = logging.getLogger(__name__)
 
 
 class SequenceService:
-    def __init__(self) -> None:
+    def __init__(self, data_dir: Path | None = None) -> None:
         self.arduino_utils = get_arduino_utils()
-        self.data_dir = Path(SEQUENCES_DATA_DIR)
+        self.data_dir = Path(data_dir) if data_dir is not None else Path(SEQUENCES_DATA_DIR)
         self.data_dir.mkdir(parents=True, exist_ok=True)
         self._playback_stop_event: threading.Event | None = None
         self._playback_thread: threading.Thread | None = None
@@ -74,8 +76,15 @@ class SequenceService:
         for file_path in sorted(self.data_dir.rglob("*.json")):
             relative_path = file_path.relative_to(self.data_dir)
             sequence_name = relative_path.with_suffix("").as_posix()
+            payload = json.loads(file_path.read_text(encoding="utf-8"))
+            parsed = self._parse_sequence_payload(name=sequence_name, payload=payload)
             sequences.append(
-                SequenceFileInfo(name=sequence_name, file_name=relative_path.as_posix())
+                SequenceFileInfo(
+                    name=sequence_name,
+                    file_name=relative_path.as_posix(),
+                    id=parsed.id,
+                    description=parsed.description,
+                )
             )
         return SequenceListResponse(total=len(sequences), data=sequences)
 
@@ -88,16 +97,44 @@ class SequenceService:
         return self._parse_sequence_payload(name=name, payload=payload)
 
     def save_sequence(
-        self, sequence: MotionSequenceFile, overwrite: bool
+        self,
+        payload: dict[str, Any] | MotionSequenceFile,
+        overwrite: bool | None = None,
     ) -> SequenceStatusResponse:
-        file_path = self._resolve_sequence_path(sequence.name)
-        if file_path.exists() and not overwrite:
-            raise ValueError(
-                f"La secuencia '{sequence.name}' ya existe. Use overwrite=true para reemplazar."
-            )
+        if isinstance(payload, MotionSequenceFile):
+            envelope: dict[str, Any] = {
+                "sequence": payload.model_dump(),
+                "overwrite": overwrite or False,
+            }
+        else:
+            envelope = dict(payload)
+            if overwrite is not None:
+                envelope["overwrite"] = overwrite
 
+        raw = envelope.get("sequence")
+        if not isinstance(raw, dict):
+            raise ValueError("Formato de secuencia inválido")
+        name = str(raw.get("name") or "").strip()
+        overwrite_flag = bool(envelope.get("overwrite", False))
+        file_path = self._resolve_sequence_path(name)
+        existing: MotionSequenceFile | None = None
+        if file_path.exists():
+            if not overwrite_flag:
+                raise ValueError(
+                    f"La secuencia '{name}' ya existe. Use overwrite=true para reemplazar."
+                )
+            existing = self.get_sequence(name)
+
+        all_files: list[MotionSequenceFile] = []
+        for info in self.list_sequences().data:
+            if overwrite_flag and info.name == name:
+                continue
+            all_files.append(self.get_sequence(info.name))
+
+        canonical = ingest_save(envelope, existing, next_sequence_id(all_files))
+        file_path = self._resolve_sequence_path(canonical.name)
         file_path.parent.mkdir(parents=True, exist_ok=True)
-        file_path.write_text(sequence.model_dump_json(indent=2), encoding="utf-8")
+        file_path.write_text(canonical.model_dump_json(indent=2), encoding="utf-8")
         return SequenceStatusResponse(status="ok", message="Secuencia guardada")
 
     def delete_sequence(self, name: str) -> SequenceStatusResponse:
@@ -219,8 +256,23 @@ class SequenceService:
 
     def _parse_sequence_payload(self, name: str, payload: object) -> MotionSequenceFile:
         if isinstance(payload, list):
-            return MotionSequenceFile(name=name, blocks=payload)
+            parsed = ingest_save(
+                {"sequence": {"name": name, "blocks": payload}, "overwrite": True},
+                existing=None,
+                next_id=1,
+            )
+            return parsed.model_copy(update={"id": None})
         if isinstance(payload, dict):
+            blocks = payload.get("blocks")
+            if isinstance(blocks, list) and blocks and isinstance(blocks[0], list):
+                enriched = dict(payload)
+                enriched.setdefault("name", name)
+                parsed = ingest_save(
+                    {"sequence": enriched, "overwrite": True},
+                    existing=None,
+                    next_id=1,
+                )
+                return parsed.model_copy(update={"id": None})
             enriched = dict(payload)
             enriched.setdefault("name", name)
             return MotionSequenceFile.model_validate(enriched)

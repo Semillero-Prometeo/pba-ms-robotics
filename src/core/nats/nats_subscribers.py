@@ -9,7 +9,6 @@ from src.core.nats.nats_client import nats_handler
 from src.core.settings.env import ROBOTICS_MS
 from src.sequence.interfaces.sequence_interface import (
     PcaScanPayload,
-    SaveSequencePayload,
     SequenceByNamePayload,
     SequenceChainStartPayload,
     SequencePlaybackPayload,
@@ -61,9 +60,7 @@ def create_subscribers(nats_client: NATSClient) -> list[NatsSubscriber]:
             subject=f"{ROBOTICS_MS}.sequenceService.getSequence",
         ),
         NatsSubscriber(
-            controller=lambda data: sequence_controller.save_sequence(
-                SaveSequencePayload.model_validate(data)
-            ),
+            controller=lambda data: sequence_controller.save_sequence(data),
             subject=f"{ROBOTICS_MS}.sequenceService.saveSequence",
         ),
         NatsSubscriber(
