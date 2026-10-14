@@ -1,53 +1,32 @@
 import logging
-from pathlib import Path
 
-from src.action.descriptions import apply_descriptions, load_descriptions
 from src.action.interfaces.command_interface import Command
 from src.action.utils.arduino_utils import get_arduino_utils
-from src.core.interfaces.paginated_response import ExecuteActionResponse, StatusResponse
-from src.core.settings.env import ACTION_DESCRIPTIONS_PATH
+from src.core.interfaces.paginated_response import ExecuteActionResponse
+from src.sequence.sequence_service import SequenceService
 
 logger = logging.getLogger(__name__)
 
 
 class ActionService:
-    def __init__(self) -> None:
+    def __init__(self, sequence_service: SequenceService | None = None) -> None:
         self.arduino_utils = get_arduino_utils()
+        self.sequence_service = sequence_service or SequenceService()
 
     def get_actions(self) -> list[Command]:
-        # return [
-        #     Command(id=1, name="Action 1", arduino_id=1),
-        #     Command(id=2, name="Action 2", arduino_id=1),
-        #     Command(id=3, name="Action 3", arduino_id=1),
-        #     Command(id=4, name="Action 4", arduino_id=1),
-        #     Command(id=5, name="Action 5", arduino_id=1),
-        #     Command(id=6, name="Action 6", arduino_id=1),
-        #     Command(id=7, name="Action 7", arduino_id=1),
-        #     Command(id=8, name="Action 8", arduino_id=1),
-        #     Command(id=9, name="Action 9", arduino_id=1),
-        #     Command(id=10, name="Action 10", arduino_id=1),
-        #     Command(id=11, name="Action 11", arduino_id=1),
-        #     Command(id=12, name="Action 12", arduino_id=1),
-        #     Command(id=13, name="Action 13", arduino_id=1),
-        #     Command(id=14, name="Action 14", arduino_id=1),
-        #     Command(id=15, name="Action 15", arduino_id=1),
-        #     Command(id=16, name="Action 16", arduino_id=1),
-        # ]
-        self.arduino_utils.sync_connections()
-        commands: list[Command] = []
-
-        for connection in self.arduino_utils.connections.values():
-            commands.extend(self.arduino_utils.get_actions_from_arduino(connection))
-            logger.info(f"Commands: {commands}")
-
-        descriptions = load_descriptions(Path(ACTION_DESCRIPTIONS_PATH))
-        described = apply_descriptions(commands, descriptions)
-        if not described:
-            logger.info("Catálogo de movimientos vacío: no hay puertos /dev/ttyACM ni /dev/ttyUSB.")
-        return described
+        commands = self.sequence_service.as_commands()
+        if not commands:
+            logger.info("Catálogo de movimientos vacío: no hay secuencias con id.")
+        return commands
 
     def execute_action(self, action_id: int, arduino_id: int) -> ExecuteActionResponse:
-        # return ExecuteActionResponse(status="ok", response=["Linea 1", "Linea 2"])
+        sequence = self.sequence_service.find_by_id(action_id)
+        if sequence is not None:
+            status = self.sequence_service.start_playback(sequence.blocks)
+            return ExecuteActionResponse(
+                status=status.status,
+                response=[status.message] if status.message else ["secuencia"],
+            )
 
         self.arduino_utils.sync_connections()
         connection = self.arduino_utils.connections.get(arduino_id)

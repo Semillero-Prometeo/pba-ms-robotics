@@ -6,6 +6,7 @@ from pathlib import Path
 from typing import Any
 
 from src.action.interfaces.arduino_connection import ArduinoConnection
+from src.action.interfaces.command_interface import Command
 from src.action.utils.arduino_utils import get_arduino_utils
 from src.core.settings.env import SEQUENCES_DATA_DIR
 from src.sequence.ingest import ingest_save, next_sequence_id
@@ -136,6 +137,29 @@ class SequenceService:
         file_path.parent.mkdir(parents=True, exist_ok=True)
         file_path.write_text(canonical.model_dump_json(indent=2), encoding="utf-8")
         return SequenceStatusResponse(status="ok", message="Secuencia guardada")
+
+    def as_commands(self) -> list[Command]:
+        commands: list[Command] = []
+        for info in self.list_sequences().data:
+            sequence = self.get_sequence(info.name)
+            if sequence.id is None or not sequence.blocks:
+                continue
+            commands.append(
+                Command(
+                    id=sequence.id,
+                    name=sequence.name,
+                    arduino_id=sequence.blocks[0].arduino_id,
+                    description=sequence.description,
+                )
+            )
+        return commands
+
+    def find_by_id(self, action_id: int) -> MotionSequenceFile | None:
+        for info in self.list_sequences().data:
+            sequence = self.get_sequence(info.name)
+            if sequence.id == action_id:
+                return sequence
+        return None
 
     def delete_sequence(self, name: str) -> SequenceStatusResponse:
         file_path = self._resolve_sequence_path(name)
