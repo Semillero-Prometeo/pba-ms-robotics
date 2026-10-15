@@ -51,6 +51,7 @@ def is_complete_pair(sequence: MotionSequenceFile) -> bool:
         sequence.category in CATEGORIES
         and bool(sequence.blocks)
         and bool(sequence.blocks_neutro)
+        and len((sequence.description or "").strip()) >= 10
     )
 
 
@@ -68,7 +69,10 @@ def ingest_save(
     description = raw.get("description", "")
     if description is None:
         description = ""
-    if not isinstance(description, str) or "\n" in description:
+    if not isinstance(description, str):
+        raise ValueError("Descripción inválida")
+    description = description.replace("\n", " ").strip()[:280]
+    if len(description) < 10:
         raise ValueError("Descripción inválida")
     category = raw.get("category")
     if category not in CATEGORIES:

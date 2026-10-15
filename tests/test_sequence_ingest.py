@@ -36,23 +36,18 @@ def test_origin_pair_becomes_canonical():
     assert result.blocks_neutro[0].arduino_id == 2
 
 
-def test_raw_seven_tuple_list_description_empty():
-    result = ingest_save(
-        {
-            "sequence": {
-                "name": "viejo",
-                "category": "cara",
-                "blocks": [[0, 0, 0.0, 2, 0, 1, "P0_S0"]],
-                "blocks_neutro": [[0, 0, 0.0, 2, 0, 1, "P0_S0"]],
-            },
-            "overwrite": False,
-        },
-        existing=None,
-        next_id=3,
-    )
-    assert result.id == 3
-    assert result.description == ""
-    assert result.category == "cara"
+def test_ingest_rejects_short_description():
+    raw = dict(ORIGIN)
+    raw["description"] = "123456789"
+    with pytest.raises(ValueError, match="Descripción inválida"):
+        ingest_save({"sequence": raw, "overwrite": False}, existing=None, next_id=3)
+
+
+def test_ingest_accepts_ten_char_description():
+    raw = dict(ORIGIN)
+    raw["description"] = "1234567890"
+    result = ingest_save({"sequence": raw, "overwrite": False}, existing=None, next_id=3)
+    assert result.description == "1234567890"
 
 
 def test_ingest_rejects_missing_category():
@@ -145,6 +140,25 @@ def test_legacy_file_lists_but_not_in_catalog(tmp_path: Path):
     assert listed.data[0].id == 7
     assert listed.data[0].category is None
     assert '"category"' not in path.read_text(encoding="utf-8")
+    from src.action.action_service import ActionService
+
+    assert ActionService(sequence_service=service).get_actions() == []
+
+
+def test_short_description_lists_but_not_in_catalog(tmp_path: Path):
+    path = tmp_path / "corto.json"
+    path.write_text(
+        '{"version": 1, "id": 8, "name": "corto", "description": "corta",'
+        '"category": "cara", "blocks": ['
+        '{"arduino_id": 0, "pca": 0, "servo": 0, "inicio": 0, "dur": 2, "pos": 0, "vel": 1, "nombre": "P0_S0"}'
+        '], "blocks_neutro": ['
+        '{"arduino_id": 0, "pca": 0, "servo": 0, "inicio": 0, "dur": 2, "pos": 0, "vel": 1, "nombre": "N0"}'
+        "]}",
+        encoding="utf-8",
+    )
+    service = SequenceService(data_dir=tmp_path)
+    listed = service.list_sequences()
+    assert listed.data[0].name == "corto"
     from src.action.action_service import ActionService
 
     assert ActionService(sequence_service=service).get_actions() == []
