@@ -1,7 +1,7 @@
 {
   "version": 1,
-  "id": 1,
-  "name": "OneDrive_1_16-10-2026/BRAZOIZQ CON GUINO 7.3",
+  "id": 2,
+  "name": "Seq/BRAZOIZQ CON GUINO 7.3",
   "description": "",
   "category": "brazo_izquierdo",
   "blocks": [
@@ -170,162 +170,72 @@
     {
       "arduino_id": 0,
       "pca": 1,
-      "servo": 0,
+      "servo": 12,
       "inicio": 0.0,
       "dur": 2.0,
-      "pos": 0,
+      "pos": 900,
       "vel": 5,
-      "nombre": "P1_S0"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 5,
-      "inicio": 0.010000000000000675,
-      "dur": 2.0,
-      "pos": 1000,
-      "vel": 5,
-      "nombre": "P1_S5"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 1,
-      "inicio": 0.03000000000000025,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P1_S1"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 4,
-      "inicio": 0.040000000000000036,
-      "dur": 2.0,
-      "pos": 1000,
-      "vel": 5,
-      "nombre": "P1_S4"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 2,
-      "inicio": 0.040000000000000036,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P1_S2"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 3,
-      "servo": 15,
-      "inicio": 1.040000000000001,
-      "dur": 2.0,
-      "pos": 360,
-      "vel": 5,
-      "nombre": "P3_S15"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 3,
-      "servo": 14,
-      "inicio": 1.040000000000001,
-      "dur": 2.0,
-      "pos": 500,
-      "vel": 5,
-      "nombre": "P3_S14"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 3,
-      "servo": 15,
-      "inicio": 1.3600000000000003,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P3_S15"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 3,
-      "servo": 14,
-      "inicio": 1.3600000000000003,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P3_S14"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 2,
-      "inicio": 2.3100000000000005,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P1_S2"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 4,
-      "inicio": 2.33,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P1_S4"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 1,
-      "inicio": 2.3400000000000003,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P1_S1"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 0,
-      "inicio": 2.3400000000000003,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P1_S0"
-    },
-    {
-      "arduino_id": 0,
-      "pca": 1,
-      "servo": 5,
-      "inicio": 2.3500000000000005,
-      "dur": 2.0,
-      "pos": 0,
-      "vel": 5,
-      "nombre": "P1_S5"
+      "nombre": "P1_S12"
     },
     {
       "arduino_id": 0,
       "pca": 1,
       "servo": 6,
-      "inicio": 4.32,
+      "inicio": 0.0,
       "dur": 2.0,
-      "pos": 0,
+      "pos": 500,
       "vel": 5,
       "nombre": "P1_S6"
     },
     {
       "arduino_id": 0,
       "pca": 1,
-      "servo": 12,
-      "inicio": 4.32,
+      "servo": 0,
+      "inicio": 1.98,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 5,
+      "nombre": "MENIQUE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 1,
+      "inicio": 1.98,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 5,
+      "nombre": "ANULAR"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 2,
+      "inicio": 2.01,
+      "dur": 2.0,
+      "pos": 1000,
+      "vel": 5,
+      "nombre": "CORAZON"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 4,
+      "inicio": 1.99,
       "dur": 2.0,
       "pos": 0,
       "vel": 5,
-      "nombre": "P1_S12"
+      "nombre": "INDICE"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 1,
+      "servo": 5,
+      "inicio": 1.97,
+      "dur": 2.0,
+      "pos": 0,
+      "vel": 5,
+      "nombre": "PULGAR"
     }
   ]
 }
