@@ -72,7 +72,7 @@ def ingest_save(
     if not isinstance(description, str):
         raise ValueError("Descripción inválida")
     description = description.replace("\n", " ").strip()[:280]
-    if len(description) < 10:
+    if description and len(description) < 10:
         raise ValueError("Descripción inválida")
     category = raw.get("category")
     if category not in CATEGORIES:

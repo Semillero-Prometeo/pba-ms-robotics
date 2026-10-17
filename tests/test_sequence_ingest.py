@@ -6,7 +6,7 @@ os.environ.setdefault("NATS_SERVER", "nats://localhost:4222")
 import pytest
 from pydantic import ValidationError
 
-from src.sequence.ingest import ingest_save, next_sequence_id
+from src.sequence.ingest import ingest_save, is_complete_pair, next_sequence_id
 from src.sequence.interfaces.sequence_interface import MotionSequenceFile
 from src.sequence.sequence_service import SequenceService
 
@@ -169,3 +169,19 @@ def test_duplicate_without_overwrite_raises(tmp_path: Path):
     service.save_sequence({"sequence": ORIGIN, "overwrite": False})
     with pytest.raises(ValueError, match="ya existe"):
         service.save_sequence({"sequence": ORIGIN, "overwrite": False})
+
+
+def test_ingest_accepts_empty_description():
+    raw = dict(ORIGIN)
+    raw["description"] = ""
+    result = ingest_save({"sequence": raw, "overwrite": False}, existing=None, next_id=11)
+    assert result.id == 11
+    assert result.description == ""
+    assert is_complete_pair(result) is False
+
+
+def test_ingest_five_char_description_rejected():
+    raw = dict(ORIGIN)
+    raw["description"] = "corta"
+    with pytest.raises(ValueError, match="Descripción inválida"):
+        ingest_save({"sequence": raw, "overwrite": False}, existing=None, next_id=12)
