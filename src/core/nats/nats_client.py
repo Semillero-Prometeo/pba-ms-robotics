@@ -119,7 +119,6 @@ class NatsHandler:
 
                     data = json.loads(msg.data.decode())
                     response_data = await subscriber.controller(data["data"])
-                    print(f"Response data: {response_data}")
 
                     # logger.info("Sending response back via reply")
 
