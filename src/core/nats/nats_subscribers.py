@@ -14,6 +14,7 @@ from src.sequence.interfaces.sequence_interface import (
     SequencePlaybackPayload,
 )
 from src.sequence.sequence_controller import SequenceController, StopSequencePayload
+from src.voice.phrases.phrase_controller import PhraseController
 from src.voice.voice_service import SpeakPayload, VoiceService
 
 
@@ -23,6 +24,7 @@ def create_subscribers(nats_client: NATSClient) -> list[NatsSubscriber]:
     sequence_controller = SequenceController()
     app_controller = AppController()
     voice_service = VoiceService(nats_handler.req_nc)
+    phrase_controller = PhraseController()
 
     subscribers: list[NatsSubscriber] = [
         NatsSubscriber(
@@ -106,6 +108,22 @@ def create_subscribers(nats_client: NATSClient) -> list[NatsSubscriber]:
                 SpeakPayload.model_validate(data).message
             ),
             subject=f"{ROBOTICS_MS}.voiceService.speak",
+        ),
+        NatsSubscriber(
+            controller=phrase_controller.list_phrases,
+            subject=f"{ROBOTICS_MS}.phraseService.list",
+        ),
+        NatsSubscriber(
+            controller=phrase_controller.create_phrase,
+            subject=f"{ROBOTICS_MS}.phraseService.create",
+        ),
+        NatsSubscriber(
+            controller=phrase_controller.update_phrase,
+            subject=f"{ROBOTICS_MS}.phraseService.update",
+        ),
+        NatsSubscriber(
+            controller=phrase_controller.set_active,
+            subject=f"{ROBOTICS_MS}.phraseService.setActive",
         ),
     ]
     return subscribers
