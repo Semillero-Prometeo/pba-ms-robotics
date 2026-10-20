@@ -1,0 +1,331 @@
+{
+  "version": 1,
+  "id": 2,
+  "name": "secuencias/CURIOSO 8.0",
+  "description": "",
+  "category": "cara",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 1,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 400,
+      "vel": 4,
+      "nombre": "rot_cuello"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 3,
+      "inicio": 0.5,
+      "dur": 1.0,
+      "pos": 550,
+      "vel": 4,
+      "nombre": "incl_cuello"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 8,
+      "inicio": 0.5,
+      "dur": 1.0,
+      "pos": 450,
+      "vel": 5,
+      "nombre": "ceja_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 11,
+      "inicio": 0.5,
+      "dur": 1.0,
+      "pos": 720,
+      "vel": 5,
+      "nombre": "ceja_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 1.6,
+      "dur": 0.25,
+      "pos": 550,
+      "vel": 7,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 1.6,
+      "dur": 0.25,
+      "pos": 730,
+      "vel": 7,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 1.6,
+      "dur": 0.25,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 1.6,
+      "dur": 0.25,
+      "pos": 360,
+      "vel": 7,
+      "nombre": "parp_sup_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 1.85,
+      "dur": 1.0,
+      "pos": 850,
+      "vel": 7,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 1.85,
+      "dur": 1.0,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 1.85,
+      "dur": 1.0,
+      "pos": 300,
+      "vel": 7,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 1.85,
+      "dur": 1.0,
+      "pos": 650,
+      "vel": 7,
+      "nombre": "parp_sup_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 1,
+      "inicio": 2.0,
+      "dur": 1.0,
+      "pos": 800,
+      "vel": 4,
+      "nombre": "rot_cuello"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 3,
+      "inicio": 2.0,
+      "dur": 1.0,
+      "pos": 900,
+      "vel": 4,
+      "nombre": "incl_cuello"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 3.2,
+      "dur": 0.25,
+      "pos": 550,
+      "vel": 7,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 3.2,
+      "dur": 0.25,
+      "pos": 730,
+      "vel": 7,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 3.2,
+      "dur": 0.25,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 3.2,
+      "dur": 0.25,
+      "pos": 360,
+      "vel": 7,
+      "nombre": "parp_sup_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 3.45,
+      "dur": 1.0,
+      "pos": 850,
+      "vel": 7,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 3.45,
+      "dur": 1.0,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 3.45,
+      "dur": 1.0,
+      "pos": 300,
+      "vel": 7,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 3.45,
+      "dur": 1.0,
+      "pos": 650,
+      "vel": 7,
+      "nombre": "parp_sup_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 1,
+      "inicio": 3.6,
+      "dur": 1.0,
+      "pos": 620,
+      "vel": 4,
+      "nombre": "rot_cuello"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 3,
+      "inicio": 3.6,
+      "dur": 1.0,
+      "pos": 800,
+      "vel": 4,
+      "nombre": "incl_cuello"
+    }
+  ],
+  "blocks_neutro": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 1,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 560,
+      "vel": 5,
+      "nombre": "rot_cuello"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 3,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 700,
+      "vel": 5,
+      "nombre": "incl_cuello"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 8,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 550,
+      "vel": 5,
+      "nombre": "ceja_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 11,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 620,
+      "vel": 5,
+      "nombre": "ceja_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 800,
+      "vel": 5,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 350,
+      "vel": 5,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 550,
+      "vel": 5,
+      "nombre": "parp_sup_der"
+    }
+  ]
+}
