@@ -14,6 +14,7 @@ ACTION_DESCRIPTIONS_PATH: str = os.getenv(
     "ACTION_DESCRIPTIONS_PATH",
     "/usr/src/app/data/action-descriptions.json",
 )
+PHRASES_PATH: str = os.getenv("PHRASES_PATH", "/usr/src/app/data/phrases.json")
 
 # Management MS (OpenAI chat via NATS)
 MANAGEMENT_MS: str = "MANAGEMENT_MS"
