@@ -33,7 +33,7 @@ class PhraseStore:
             icon=self._clean_icon(icon),
             active=True,
         )
-        items.append(phrase)
+        items.insert(0, phrase)
         self._write(items)
         return phrase
 

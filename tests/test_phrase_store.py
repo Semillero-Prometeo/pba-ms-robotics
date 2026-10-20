@@ -47,6 +47,7 @@ def test_create_update_and_set_active_persist(tmp_path: Path) -> None:
     created = store.create("Nueva", "Texto hablado", "star")
     assert created.id == len(SEED_ROWS) + 1
     assert created.active is True
+    assert store.list_phrases()[0].id == created.id
     updated = store.update(created.id, {"title": "Editada", "icon": ""})
     assert updated.title == "Editada"
     assert updated.text == "Texto hablado"
