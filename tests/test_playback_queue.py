@@ -8,8 +8,8 @@ os.environ.setdefault("NATS_SERVER", "nats://localhost:4222")
 import pytest
 
 from src.action.action_service import ActionService
-from src.sequence.interfaces.sequence_interface import SequencePlaybackPayload
-from src.sequence.playback_queue import WAIT_SECONDS
+from src.sequence.interfaces.sequence_interface import MotionBlock, SequencePlaybackPayload
+from src.sequence.playback_queue import WAIT_SECONDS, PlaybackQueue, QueueStep, step_duration_ms
 from src.sequence.sequence_service import SequenceService
 
 ORIGIN = {
@@ -24,7 +24,7 @@ ORIGIN = {
 ORIGIN_TWO = {
     **ORIGIN,
     "name": "adios",
-    "description": "Despedida",
+    "description": "Despedida del gesto",
     "blocks": [[0, 1, 0.0, 2, 200, 5, "P0_S1"]],
     "blocks_neutro": [[0, 1, 0.0, 2, 200, 5, "P0_S1"]],
 }
@@ -186,3 +186,131 @@ def test_get_actions_one_row_per_gesture(tmp_path: Path):
     names = [item.name for item in commands]
     assert sorted(names) == ["adios", "saludo"]
     assert {item.id for item in commands} == {1, 2}
+
+
+def _block(inicio: float, nombre: str = "P0_S0") -> MotionBlock:
+    return MotionBlock(
+        arduino_id=0,
+        pca=0,
+        servo=0,
+        inicio=inicio,
+        dur=2.0,
+        pos=100,
+        vel=5,
+        nombre=nombre,
+    )
+
+
+def test_espera_duration_is_wait_seconds_in_ms():
+    step = QueueStep(id=1, name="saludo", mode="espera", source="turno")
+    assert step_duration_ms(step, 1.0) == 1000
+    assert step_duration_ms(step, WAIT_SECONDS) == 1000
+
+
+def test_gesture_duration_is_max_inicio_ms():
+    step = QueueStep(
+        id=1,
+        name="saludo",
+        mode="normal",
+        source="turno",
+        blocks=[_block(0.0, "a"), _block(1.5, "b")],
+    )
+    assert step_duration_ms(step) == 1500
+    empty = QueueStep(id=1, name="x", mode="neutro", source="turno", blocks=[])
+    assert step_duration_ms(empty) == 0
+
+
+def test_current_has_blocks_and_queue_does_not(tmp_path: Path):
+    service = ready_service(tmp_path, wait=0.3)
+
+    def slow_fire(blocks, stop_event):
+        stop_event.wait(0.4)
+
+    service._fire_blocks = slow_fire
+    ActionService(sequence_service=service).execute_action(1, 0)
+    snap = service.get_runtime()
+    assert snap.current is not None
+    assert snap.current.mode == "normal"
+    assert snap.current.duration_ms == 0
+    assert snap.current.remaining_ms is not None
+    assert snap.current.blocks is not None
+    assert [item.nombre for item in snap.current.blocks] == ["P0_S0"]
+    espera = snap.queue[0]
+    assert espera.mode == "espera"
+    assert espera.duration_ms == 300
+    assert espera.blocks is None
+    assert espera.remaining_ms is None
+    service.stop_playback()
+    wait_idle(service)
+
+
+def test_espera_current_has_empty_blocks(tmp_path: Path):
+    service = ready_service(tmp_path, wait=0.4)
+    service._fire_blocks = lambda blocks, stop_event: None
+    ActionService(sequence_service=service).execute_action(1, 0)
+    deadline = time.monotonic() + 2.0
+    while time.monotonic() < deadline:
+        snap = service.get_runtime()
+        if snap.current is not None and snap.current.mode == "espera":
+            assert snap.current.blocks == []
+            assert snap.current.duration_ms == 400
+            service.stop_playback()
+            wait_idle(service)
+            return
+        time.sleep(0.02)
+    raise AssertionError(service.get_runtime().model_dump())
+
+
+def test_remaining_drops_during_slow_step():
+    def slow_fire(blocks, stop_event):
+        stop_event.wait(0.3)
+
+    queue = PlaybackQueue(slow_fire, wait_seconds=1.0)
+    queue.enqueue(
+        [
+            QueueStep(
+                id=1,
+                name="saludo",
+                mode="normal",
+                source="turno",
+                blocks=[_block(0.5, "late")],
+            )
+        ],
+        reject_if_busy=False,
+    )
+    time.sleep(0.12)
+    snap = queue.snapshot()
+    assert snap.current is not None
+    assert snap.current.duration_ms == 500
+    assert 0 < snap.current.remaining_ms < 500
+    queue.stop()
+
+
+def test_fired_follows_elapsed_vs_inicio():
+    def slow_fire(blocks, stop_event):
+        stop_event.wait(0.35)
+
+    queue = PlaybackQueue(slow_fire, wait_seconds=1.0)
+    queue.enqueue(
+        [
+            QueueStep(
+                id=1,
+                name="saludo",
+                mode="normal",
+                source="turno",
+                blocks=[_block(0.0, "early"), _block(0.2, "late")],
+            )
+        ],
+        reject_if_busy=False,
+    )
+    time.sleep(0.08)
+    first = queue.snapshot()
+    names = {item.nombre: item.fired for item in first.current.blocks}
+    assert names["early"] is True
+    assert names["late"] is False
+    time.sleep(0.2)
+    second = queue.snapshot()
+    later = {item.nombre: item.fired for item in second.current.blocks}
+    assert later["early"] is True
+    assert later["late"] is True
+    queue.stop()

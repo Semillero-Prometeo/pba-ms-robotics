@@ -89,11 +89,25 @@ class SequencePlaybackPayload(BaseModel):
         return self
 
 
+class RuntimeBlockPublic(BaseModel):
+    nombre: str
+    pca: int
+    servo: int
+    inicio: float
+    dur: float
+    pos: int
+    vel: int
+    fired: bool
+
+
 class QueueStepPublic(BaseModel):
     id: int | None = None
     name: str
     mode: Literal["normal", "neutro", "espera"]
     source: Literal["turno", "panel", "estudio"]
+    duration_ms: int = 0
+    remaining_ms: int | None = None
+    blocks: list[RuntimeBlockPublic] | None = None
 
 
 class RuntimeSnapshot(BaseModel):
