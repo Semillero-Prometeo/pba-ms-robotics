@@ -1,0 +1,231 @@
+{
+  "version": 1,
+  "id": 1,
+  "name": "secuencias/ASENTIR 8.0",
+  "description": "",
+  "category": "cara",
+  "blocks": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 0.0,
+      "dur": 0.5,
+      "pos": 700,
+      "vel": 6,
+      "nombre": "cuello_arr_abj"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 4,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "mejilla_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 6,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 650,
+      "vel": 5,
+      "nombre": "labio_sup"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 0.5,
+      "dur": 0.5,
+      "pos": 450,
+      "vel": 6,
+      "nombre": "cuello_arr_abj"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 1.0,
+      "dur": 0.5,
+      "pos": 700,
+      "vel": 6,
+      "nombre": "cuello_arr_abj"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 1.5,
+      "dur": 0.5,
+      "pos": 450,
+      "vel": 6,
+      "nombre": "cuello_arr_abj"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 2.0,
+      "dur": 1.0,
+      "pos": 650,
+      "vel": 6,
+      "nombre": "cuello_arr_abj"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 2.3,
+      "dur": 0.25,
+      "pos": 550,
+      "vel": 7,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 2.3,
+      "dur": 0.25,
+      "pos": 730,
+      "vel": 7,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 2.3,
+      "dur": 0.25,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 2.3,
+      "dur": 0.25,
+      "pos": 360,
+      "vel": 7,
+      "nombre": "parp_sup_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 2.55,
+      "dur": 1.0,
+      "pos": 850,
+      "vel": 7,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 2.55,
+      "dur": 1.0,
+      "pos": 500,
+      "vel": 7,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 2.55,
+      "dur": 1.0,
+      "pos": 300,
+      "vel": 7,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 2.55,
+      "dur": 1.0,
+      "pos": 650,
+      "vel": 7,
+      "nombre": "parp_sup_der"
+    }
+  ],
+  "blocks_neutro": [
+    {
+      "arduino_id": 0,
+      "pca": 0,
+      "servo": 2,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 550,
+      "vel": 5,
+      "nombre": "cuello_arr_abj"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 4,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 580,
+      "vel": 5,
+      "nombre": "mejilla_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 6,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 500,
+      "vel": 5,
+      "nombre": "labio_sup"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 12,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 800,
+      "vel": 5,
+      "nombre": "parp_inf_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 13,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 600,
+      "vel": 5,
+      "nombre": "parp_sup_izq"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 14,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 350,
+      "vel": 5,
+      "nombre": "parp_inf_der"
+    },
+    {
+      "arduino_id": 0,
+      "pca": 3,
+      "servo": 15,
+      "inicio": 0.0,
+      "dur": 1.0,
+      "pos": 550,
+      "vel": 5,
+      "nombre": "parp_sup_der"
+    }
+  ]
+}
