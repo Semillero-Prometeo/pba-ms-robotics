@@ -10,9 +10,9 @@ PROMETEO Backend Architecture Robotics Microservice
   (no uses `/src/voice/models/...`: esa ruta no existe en la imagen).
 - **Piper (recomendado):** modelos en [rhasspy/piper-voices (Hugging Face)](https://huggingface.co/rhasspy/piper-voices). El `Dockerfile.dev` instala el binario `piper`.
 - **Fallback espeak-ng:** si Piper no aplica; `ESPEAK_VOICE=es` por defecto.
-- **Bluetooth / PulseAudio en Docker:** dentro del contenedor no hay servidor Pulse → `Connection refused`. Para usar el **PulseAudio del host Linux** (donde aparece el sink Bluetooth `bluez`):
+- **Bluetooth / PulseAudio en Docker:** dentro del contenedor no hay servidor Pulse → `Connection refused`. `Access denied` es la cookie: el contenedor es root y Pulse autentica con `~/.config/pulse/cookie` del host. Para el **PulseAudio del host Linux** (sink Bluetooth `bluez`):
   1. En el `.env` del launcher: `MS_ROBOTICS_PULSE_SERVER=unix:/run/user/TU_UID/pulse/native` (sustituye `TU_UID`, p. ej. `id -u`).
-  2. En `docker-compose.yml`, descomenta el volumen que monta `/run/user/TU_UID/pulse` (mismo UID que en la ruta).
+  2. Compose monta `/run/user/1000/pulse` y la cookie en `/root/.config/pulse/cookie`. Si `HOME` no es el de Pulse, defina `PULSE_COOKIE_PATH`.
   3. Opcional: `PULSE_SINK` con el nombre exacto del sink BT si la heurística no basta.
 - **Solo probar TTS sin reproducir:** `MS_ROBOTICS_VOICE_SKIP_PLAYBACK=1`.
 
